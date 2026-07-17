@@ -1,0 +1,1402 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Goship123 — Đặt đồ ăn, Xe ôm, Mua hộ Phú Quốc | Hotline 0775 218 017</title>
+<meta name="description" content="Goship123 — siêu app Phú Quốc: đặt đồ ăn từ 29+ quán uy tín, gọi xe ôm giá cố định 13k + 5.5k/km, mua hộ tận nơi. Ứng cọc QR chống boom đơn, theo dõi hành trình giao trên bản đồ GPS. Hotline/Zalo: 0775 218 017.">
+<meta name="keywords" content="giao đồ ăn Phú Quốc, ship đồ ăn Phú Quốc, xe ôm Phú Quốc, mua hộ Phú Quốc, giao hàng Dương Đông, ship An Thới, Goship123, đặt đồ ăn online Phú Quốc">
+<meta name="robots" content="index, follow">
+<meta name="author" content="Kodeeboyzz">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Goship123 — Đặt đồ ăn · Xe ôm · Mua hộ Phú Quốc">
+<meta property="og:description" content="Siêu app đảo ngọc: đồ ăn quán 4★+, xe ôm giá cố định, mua hộ tận nơi. Hotline/Zalo 0775 218 017 (7:00–22:00).">
+<meta property="og:locale" content="vi_VN">
+<meta name="geo.region" content="VN-47">
+<meta name="geo.placename" content="Phú Quốc, Kiên Giang">
+<meta name="geo.position" content="10.2899;103.984">
+<meta name="theme-color" content="#D7261D">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2224%22 fill=%22%23E63329%22/><text y=%2272%22 x=%2250%22 text-anchor=%22middle%22 font-size=%2260%22>🛵</text></svg>">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Goship123",
+  "description": "Dịch vụ đặt đồ ăn, xe ôm, mua hộ tại Phú Quốc",
+  "telephone": "+84775218017",
+  "areaServed": "Phú Quốc, Kiên Giang, Việt Nam",
+  "openingHours": "Mo-Su 07:00-22:00",
+  "priceRange": "₫",
+  "brand": "Kodeeboyzz",
+  "sameAs": ["https://kodeeboyzz.com", "https://zalo.me/0775218017"]
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<style>
+:root{
+  --red:#E63329; --reddark:#B71C13; --redsoft:#FFE9E4;
+  --yellow:#FFC93C; --yellowdark:#E8A200; --yellowsoft:#FFF3CF;
+  --green:#0FA958; --greendark:#07793D; --greensoft:#E2F7E9;
+  --ink:#2A211C; --mut:#8A7B6E; --line:#F0E2C8;
+  --card:#FFFDF6; --radius:18px;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{
+  font-family:'Be Vietnam Pro',sans-serif;color:var(--ink);
+  max-width:480px;margin:0 auto;min-height:100dvh;display:flex;flex-direction:column;
+  box-shadow:0 0 44px rgba(183,28,19,.18);
+  /* 🎨 nền sáng ấm đổi màu — kem vàng ↔ hồng đào ↔ xanh mint */
+  background:linear-gradient(150deg,#FFF4D6,#FFEAC2,#FFE3D6,#E4F8E9,#FFF4D6);
+  background-size:420% 420%;
+  animation:bgShift 24s ease-in-out infinite;
+}
+@keyframes bgShift{0%,100%{background-position:0% 40%}50%{background-position:100% 60%}}
+h1,h2,h3{font-family:'Be Vietnam Pro',sans-serif}
+
+/* dải 3 màu signature */
+.tri{height:5px;background:linear-gradient(90deg,var(--red) 0 33.3%,var(--yellow) 33.3% 66.6%,var(--green) 66.6% 100%)}
+
+/* ================= HEADER ================= */
+header{
+  background:linear-gradient(140deg,#8E120B,var(--reddark),var(--red),#F2542D,#FF8C1A,var(--red));
+  background-size:300% 300%;
+  animation:hdrShift 16s ease-in-out infinite;
+  color:#fff;padding:16px 16px 20px;position:relative;overflow:hidden;
+}
+@keyframes hdrShift{0%,100%{background-position:0% 0%}50%{background-position:100% 100%}}
+header .brand{display:flex;align-items:center;gap:10px;position:relative;z-index:3}
+.logo{
+  width:48px;height:48px;border-radius:15px;position:relative;
+  background:linear-gradient(145deg,#FFE08A,var(--yellow));
+  display:grid;place-items:center;box-shadow:0 4px 0 rgba(0,0,0,.2);
+  animation:logoPulse 5s ease-in-out infinite;
+}
+.logo .bike{font-size:25px;display:block;animation:ride 6s ease-in-out infinite}
+@keyframes ride{
+  0%,100%{transform:translateX(-2px) rotate(-2deg)}
+  25%{transform:translateX(2px) translateY(-2px) rotate(1deg)}
+  50%{transform:translateX(3px) rotate(-1deg)}
+  75%{transform:translateY(-1px) rotate(2deg)}
+}
+@keyframes logoPulse{
+  0%,100%{box-shadow:0 4px 0 rgba(0,0,0,.2),0 0 0 0 rgba(255,201,60,.55)}
+  50%{box-shadow:0 4px 0 rgba(0,0,0,.2),0 0 0 12px rgba(255,201,60,0)}
+}
+header h1{font-family:'Baloo 2';font-size:25px;font-weight:800;line-height:1;letter-spacing:.3px}
+header h1 .num{color:var(--yellow);animation:numGlow 5s ease-in-out infinite}
+@keyframes numGlow{0%,100%{text-shadow:none}50%{text-shadow:0 0 15px rgba(255,201,60,.95)}}
+header .tag{font-size:10px;opacity:.92;margin-top:2px;letter-spacing:.5px}
+header .zbtn{
+  margin-left:auto;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.4);
+  color:#fff;border-radius:12px;padding:8px 12px;font-size:12px;font-weight:700;
+  font-family:'Be Vietnam Pro';text-decoration:none;white-space:nowrap;
+}
+/* 📞 HOTLINE nổi bật */
+.hotline{
+  position:relative;z-index:3;margin-top:12px;display:flex;align-items:center;gap:10px;
+  background:rgba(0,0,0,.22);border:1.5px dashed rgba(255,201,60,.85);border-radius:14px;
+  padding:9px 13px;text-decoration:none;color:#fff;
+}
+.hotline .ring{font-size:19px;animation:ringring 2.2s ease-in-out infinite;transform-origin:top center}
+@keyframes ringring{0%,100%{transform:rotate(0)}5%{transform:rotate(-18deg)}10%{transform:rotate(14deg)}15%{transform:rotate(-10deg)}20%{transform:rotate(6deg)}25%{transform:rotate(0)}}
+.hotline .hl1{font-size:10px;font-weight:700;letter-spacing:1px;color:var(--yellow)}
+.hotline .hl2{font-family:'Baloo 2';font-size:18px;font-weight:800;letter-spacing:1px;line-height:1.1}
+.hotline .hl3{margin-left:auto;font-size:10px;background:var(--green);border-radius:99px;padding:4px 9px;font-weight:800;animation:blink 2.4s ease-in-out infinite}
+/* thanh tìm kiếm kính mờ */
+.hsearch{
+  position:relative;z-index:3;margin-top:11px;
+  background:rgba(255,255,255,.92);backdrop-filter:blur(8px);
+  border-radius:99px;display:flex;align-items:center;gap:8px;
+  padding:11px 16px;box-shadow:0 5px 16px rgba(120,10,5,.3);
+}
+.hsearch input{border:none;outline:none;flex:1;font-size:13.5px;font-family:'Be Vietnam Pro';background:none;color:var(--ink)}
+.hsearch .ic{font-size:15px}
+.clockrow{display:flex;align-items:center;gap:8px;margin-top:10px;position:relative;z-index:3;font-size:11.5px;opacity:.97}
+.clockrow .dot{width:7px;height:7px;border-radius:50%;background:#8CFFBE;animation:blink 2s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.clockrow b{font-family:'Baloo 2';font-size:14px;letter-spacing:.5px}
+.openchip{
+  margin-left:auto;font-size:10px;font-weight:800;border-radius:99px;padding:4px 10px;
+  background:rgba(15,169,88,.35);color:#8CFFBE;border:1px solid rgba(140,255,190,.6);
+  animation:blink 2.4s ease-in-out infinite;
+}
+.openchip.closed{background:rgba(0,0,0,.35);color:#FFD9D4;border-color:rgba(255,217,212,.5);animation:none}
+/* 🍜 đồ ăn rơi 3D trong header — xoay lộn nhào theo chiều sâu */
+header{perspective:650px}
+.fall{position:absolute;top:-40px;font-size:16px;opacity:0;pointer-events:none;z-index:1;
+  transform-style:preserve-3d;will-change:transform;
+  animation:fall3d linear infinite;filter:drop-shadow(0 3px 4px rgba(0,0,0,.35));}
+@keyframes fall3d{
+  0%{transform:translateY(0) translateZ(var(--z,0px)) rotateX(0) rotateY(0) rotateZ(0)}
+  8%{opacity:.9}85%{opacity:.9}
+  100%{transform:translateY(280px) translateZ(var(--z,0px)) rotateX(660deg) rotateY(540deg) rotateZ(160deg);opacity:0}
+}
+.spark{position:absolute;font-size:10px;opacity:0;pointer-events:none;z-index:1;animation:twinkle ease-in-out infinite}
+@keyframes twinkle{0%,100%{opacity:0;transform:scale(.4) rotateY(0)}50%{opacity:.95;transform:scale(1.2) rotateY(180deg)}}
+/* 🌐 lớp 3D rơi toàn trang — trái cây/ngôi sao lộn nhào từ trên xuống */
+.bg3d{position:fixed;inset:0;pointer-events:none;z-index:6;perspective:900px;overflow:hidden}
+.bg3d span{
+  position:absolute;top:-10vh;will-change:transform;transform-style:preserve-3d;
+  animation:bgFall3d linear infinite;
+}
+@keyframes bgFall3d{
+  0%{transform:translateY(0) translateX(0) rotateX(0) rotateY(0)}
+  25%{transform:translateY(30vh) translateX(14px) rotateX(190deg) rotateY(260deg)}
+  50%{transform:translateY(60vh) translateX(-12px) rotateX(370deg) rotateY(540deg)}
+  75%{transform:translateY(90vh) translateX(10px) rotateX(550deg) rotateY(800deg)}
+  100%{transform:translateY(120vh) translateX(0) rotateX(720deg) rotateY(1080deg)}
+}
+
+/* ================= SERVICE GRID ================= */
+.svcgrid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:8px;
+  background:var(--card);border-radius:var(--radius);padding:14px 8px 12px;
+  margin:14px 16px 0;position:relative;z-index:4;
+  box-shadow:0 6px 20px rgba(150,60,10,.14);
+  border:1.5px solid var(--line);
+}
+.svc{background:none;border:none;cursor:pointer;text-align:center;font-family:'Be Vietnam Pro'}
+.svc .ic{
+  width:46px;height:46px;margin:0 auto;border-radius:14px;display:grid;place-items:center;
+  font-size:23px;transition:transform .12s;
+}
+.svc:nth-child(1) .ic{background:var(--redsoft)}
+.svc:nth-child(2) .ic{background:var(--greensoft)}
+.svc:nth-child(3) .ic{background:var(--yellowsoft)}
+.svc:nth-child(4) .ic{background:#EFEAF9}
+.svc:active .ic{transform:scale(.9)}
+.svc.on .ic{outline:2.5px solid var(--red);animation:flip3d 4.5s ease-in-out infinite;transform-style:preserve-3d}
+@keyframes flip3d{0%,100%{transform:rotateY(0) translateY(0)}45%{transform:rotateY(0) translateY(-4px)}60%{transform:rotateY(360deg) translateY(0)}}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+/* logo lật xu 3D mỗi vài giây */
+.logo{transform-style:preserve-3d;animation:logoPulse 5s ease-in-out infinite,coinFlip 7s ease-in-out infinite}
+@keyframes coinFlip{0%,82%,100%{transform:rotateY(0)}90%{transform:rotateY(360deg)}}
+.svc .lb{display:block;font-size:11px;font-weight:800;margin-top:6px;color:var(--ink)}
+.svc.on .lb{color:var(--red)}
+
+/* ================= BANNERS ================= */
+.banners{margin:12px 16px 0;position:relative;overflow:hidden;border-radius:var(--radius);height:92px;box-shadow:0 4px 14px rgba(150,60,10,.15)}
+.btrack{display:flex;height:100%;transition:transform .55s cubic-bezier(.22,1,.36,1)}
+.bslide{min-width:100%;height:100%;display:flex;align-items:center;gap:12px;padding:0 18px;color:#fff}
+.bslide .em{font-size:38px;animation:bounce 3s ease-in-out infinite}
+.bslide .t1{font-size:15px;font-weight:800}
+.bslide .t2{font-size:11.5px;opacity:.94;margin-top:3px}
+.b1{background:linear-gradient(120deg,var(--reddark),var(--red))}
+.b2{background:linear-gradient(120deg,var(--yellowdark),var(--yellow));color:#4A3200}
+.b3{background:linear-gradient(120deg,var(--greendark),var(--green))}
+.bdots{position:absolute;bottom:7px;right:12px;display:flex;gap:5px}
+.bdots span{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.5)}
+.bdots span.on{background:#fff}
+
+/* ================= VOUCHERS ================= */
+.vouchers{display:flex;gap:8px;overflow-x:auto;padding:12px 16px 2px;scrollbar-width:none}
+.vouchers::-webkit-scrollbar{display:none}
+.vch{
+  flex-shrink:0;display:flex;align-items:center;gap:8px;background:var(--card);
+  border:1.5px dashed var(--red);border-radius:12px;padding:8px 12px;cursor:pointer;
+  font-family:'Be Vietnam Pro';
+}
+.vch .tik{font-size:17px;animation:pillBlink 1.8s ease-in-out infinite}
+.vch .cd{font-size:12px;font-weight:800;color:var(--red)}
+.vch .ds{font-size:10px;color:var(--mut)}
+.vch.on{background:var(--redsoft);border-style:solid;box-shadow:0 3px 10px rgba(230,51,41,.25)}
+@keyframes pillBlink{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.9)}}
+
+/* ================= WEATHER ================= */
+.weather{display:flex;gap:8px;padding:10px 16px 0}
+.wday{flex:1;background:var(--card);border:1.5px solid var(--line);border-radius:13px;padding:8px 5px;text-align:center}
+.wday .d{font-size:9.5px;font-weight:800;color:var(--mut);text-transform:uppercase}
+.wday .i{font-size:20px;margin:1px 0}
+.wday .t{font-size:11.5px;font-weight:800;color:var(--ink)}
+.wday .r{font-size:9.5px;color:var(--green);font-weight:800}
+
+/* ================= LAYOUT ================= */
+main{flex:1;padding:14px 16px 100px}
+.panel{display:none}
+.panel.show{display:block;animation:fade .25s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.sec-title{font-size:17px;font-weight:800;color:var(--ink);margin:8px 0 10px;display:flex;align-items:center;gap:8px}
+.tridots{display:inline-flex;gap:3px}
+.tridots i{width:7px;height:7px;border-radius:50%;display:block}
+.tridots i:nth-child(1){background:var(--red)}
+.tridots i:nth-child(2){background:var(--yellow)}
+.tridots i:nth-child(3){background:var(--green)}
+.pill{font-size:9.5px;font-weight:800;background:var(--red);color:#fff;border-radius:99px;padding:3px 9px;animation:pillBlink 1.8s ease-in-out infinite}
+.hint{font-size:12px;color:var(--mut);line-height:1.55;margin-bottom:12px}
+
+/* ---------- CATEGORY ---------- */
+.cats{display:flex;gap:8px;overflow-x:auto;padding-bottom:8px;margin-bottom:4px;scrollbar-width:none}
+.cats::-webkit-scrollbar{display:none}
+.cat{
+  border:1.5px solid var(--line);background:var(--card);border-radius:99px;padding:7px 13px;
+  font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;
+  font-family:'Be Vietnam Pro';color:var(--ink);
+}
+.cat.on{background:var(--red);color:#fff;border-color:var(--red)}
+
+/* ---------- SHOP CARDS ---------- */
+#shopList{perspective:1000px}
+.shop{
+  background:var(--card);border:1.5px solid var(--line);border-radius:var(--radius);
+  padding:0 14px 13px;margin-bottom:11px;box-shadow:0 3px 10px rgba(150,60,10,.07);
+  overflow:hidden;transform-style:preserve-3d;
+  opacity:0;transform:translateY(-24px) rotateX(-32deg);
+  animation:shopDrop .6s cubic-bezier(.22,1.2,.36,1) forwards;
+  animation-delay:calc(var(--i,0)*80ms);
+}
+.shop::before{content:"";display:block;height:4px;margin:0 -14px 11px;
+  background:linear-gradient(90deg,var(--red) 0 33.3%,var(--yellow) 33.3% 66.6%,var(--green) 66.6% 100%);}
+@keyframes shopDrop{to{opacity:1;transform:translateY(0) rotateX(0)}}
+.shop-head{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.shop-head h3{font-size:14.5px;font-weight:800;color:var(--ink);line-height:1.3}
+.shop-head .area{font-size:10.5px;color:var(--mut);white-space:nowrap}
+.rating{font-size:10.5px;color:var(--yellowdark);font-weight:700;margin-top:3px}
+.rating a{color:var(--green);text-decoration:none;font-weight:800}
+.dish{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-top:1px dashed var(--line)}
+.dish:first-of-type{margin-top:9px}
+.dish .nm{font-size:13px;font-weight:600}
+.dish .nm mark{background:var(--yellowsoft);border-radius:4px;padding:0 2px}
+.dish .pr{font-size:12px;color:var(--mut)}
+.addbtn{
+  background:var(--red);border:none;border-radius:11px;font-weight:800;font-size:12.5px;
+  padding:7px 13px;cursor:pointer;font-family:'Be Vietnam Pro';color:#fff;
+  box-shadow:0 3px 0 rgba(0,0,0,.16);flex-shrink:0;margin-left:8px;
+}
+.addbtn:active{transform:translateY(2px);box-shadow:none}
+.pricenote{font-size:10px;color:var(--mut);text-align:center;margin:4px 0 10px}
+/* 📌 slot ghim tài trợ */
+.pinslot{
+  background:linear-gradient(135deg,var(--yellowsoft),#FFF9E8);
+  border:2px dashed var(--yellowdark);border-radius:var(--radius);
+  padding:13px 14px;margin-bottom:11px;display:flex;align-items:center;gap:12px;
+  text-decoration:none;color:var(--ink);
+}
+.pinslot .pn{font-size:24px;animation:bounce 2.6s ease-in-out infinite}
+.pinslot .pt1{font-size:13px;font-weight:800}
+.pinslot .pt1 .tag{font-size:9px;background:var(--yellowdark);color:#fff;border-radius:99px;padding:2px 7px;margin-left:5px;vertical-align:2px}
+.pinslot .pt2{font-size:11px;color:#8A6A2A;margin-top:2px;line-height:1.45}
+
+/* ---------- ZONES / FARE ---------- */
+.zones{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 12px}
+.zone{
+  border:1.5px solid var(--line);background:var(--card);border-radius:99px;padding:8px 14px;
+  font-size:12.5px;font-weight:700;cursor:pointer;font-family:'Be Vietnam Pro';color:var(--ink);
+}
+.zone.on{background:var(--green);color:#fff;border-color:var(--green)}
+.fare{
+  background:var(--card);border:1.5px solid var(--line);border-radius:var(--radius);
+  padding:15px;text-align:center;margin-bottom:14px;box-shadow:0 2px 8px rgba(150,60,10,.06);
+}
+.fare .amt{font-family:'Baloo 2';font-size:32px;font-weight:800;color:var(--green)}
+.fare .note{font-size:11.5px;color:var(--mut);margin-top:4px}
+
+/* ---------- FORMS / BUTTONS ---------- */
+label{display:block;font-size:11.5px;font-weight:800;color:var(--ink);margin:12px 0 5px}
+input,textarea,select{
+  width:100%;border:1.5px solid var(--line);border-radius:12px;padding:11px 12px;
+  font-size:14px;font-family:'Be Vietnam Pro';background:#fff;color:var(--ink);
+}
+input:focus,textarea:focus,select:focus{outline:none;border-color:var(--red)}
+.cta{
+  width:100%;margin-top:16px;background:var(--red);border:none;border-radius:13px;
+  padding:14px;font-size:15px;font-weight:800;font-family:'Be Vietnam Pro';color:#fff;
+  cursor:pointer;box-shadow:0 4px 0 rgba(0,0,0,.18);
+}
+.cta.green{background:var(--green)}
+.cta.yellow{background:var(--yellow);color:#4A3200}
+.cta.dark{background:#3A2B22}
+.cta:active{transform:translateY(3px);box-shadow:none}
+.cta:focus-visible,.zone:focus-visible,.svc:focus-visible,.addbtn:focus-visible,.cat:focus-visible,.vch:focus-visible{outline:3px solid var(--green);outline-offset:2px}
+.gpsbtn{
+  display:flex;align-items:center;justify-content:center;gap:7px;width:100%;margin-top:8px;
+  background:var(--card);border:1.5px dashed var(--green);border-radius:12px;padding:11px;
+  font-size:12.5px;font-weight:800;color:var(--greendark);cursor:pointer;font-family:'Be Vietnam Pro';
+}
+.gpsbtn.ok{border-style:solid;background:var(--greensoft)}
+
+/* ---------- CART BAR / BOT ---------- */
+.cartbar{
+  position:fixed;bottom:72px;left:50%;transform:translateX(-50%);
+  width:min(448px,calc(100% - 24px));background:var(--reddark);color:#fff;border-radius:15px;
+  padding:13px 16px;display:none;justify-content:space-between;align-items:center;
+  box-shadow:0 8px 24px rgba(140,15,8,.45);z-index:20;cursor:pointer;
+}
+.cartbar.show{display:flex}
+.cartbar b{font-family:'Baloo 2';font-size:17px}
+.botfab{
+  position:fixed;right:calc(50% - 240px + 14px);bottom:132px;z-index:25;
+  width:54px;height:54px;border-radius:50%;border:none;cursor:pointer;
+  background:linear-gradient(145deg,#17C46B,var(--green));color:#fff;font-size:25px;
+  box-shadow:0 6px 18px rgba(7,121,61,.5);
+  animation:botFloat 4s ease-in-out infinite;
+}
+@media (max-width:480px){.botfab{right:14px}}
+@keyframes botFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+
+/* ---------- TABBAR ---------- */
+nav{
+  position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(480px,100%);
+  background:var(--card);border-top:1.5px solid var(--line);display:flex;z-index:30;
+  padding-bottom:env(safe-area-inset-bottom);
+}
+nav button{
+  flex:1;background:none;border:none;padding:10px 0 12px;cursor:pointer;
+  font-family:'Be Vietnam Pro';font-size:10px;font-weight:700;color:var(--mut);
+}
+nav button .i{display:block;font-size:20px;margin-bottom:2px}
+nav button.on{color:var(--red)}
+
+/* ---------- ORDERS + TRACKING ---------- */
+.order{
+  background:var(--card);border:1.5px solid var(--line);border-radius:var(--radius);
+  padding:14px;margin-bottom:10px;font-size:13px;box-shadow:0 2px 8px rgba(150,60,10,.06);
+}
+.order .code{font-family:'Baloo 2';font-weight:800;color:var(--red)}
+.order .st{font-weight:800;color:var(--green)}
+.order .dep{color:var(--yellowdark);font-weight:800}
+.trackbtn{
+  margin-top:8px;display:inline-flex;align-items:center;gap:6px;background:var(--greensoft);
+  border:1.5px solid var(--green);color:var(--greendark);border-radius:10px;padding:7px 11px;
+  font-size:11.5px;font-weight:800;cursor:pointer;font-family:'Be Vietnam Pro';
+}
+.empty{text-align:center;color:var(--mut);font-size:13px;padding:40px 20px}
+.empty .big{font-size:40px;display:block;margin-bottom:8px}
+#tmap{height:250px;border-radius:var(--radius);border:1.5px solid var(--line);margin-top:10px}
+.tsteps{margin-top:13px}
+.tstep{display:flex;gap:11px;padding:7px 0;font-size:12.5px}
+.tstep .ic2{
+  width:26px;height:26px;border-radius:50%;background:var(--line);display:grid;place-items:center;
+  font-size:13px;flex-shrink:0;
+}
+.tstep.done .ic2{background:var(--green);color:#fff}
+.tstep.now .ic2{background:var(--yellow);animation:pillBlink 1.6s ease-in-out infinite}
+.tstep .tt{font-weight:800}
+.tstep .ts{color:var(--mut);font-size:11px}
+.tnote{
+  background:var(--yellowsoft);border:1.5px solid var(--yellow);border-radius:12px;
+  padding:10px 12px;font-size:11px;color:#6B4E12;line-height:1.5;margin-top:12px;
+}
+
+/* ---------- TRUST / PARTNERS / RECRUIT ---------- */
+.trust{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:18px}
+.trust div{
+  background:var(--card);border:1.5px solid var(--line);border-radius:13px;padding:10px 6px;
+  text-align:center;font-size:10px;font-weight:700;color:var(--mut);line-height:1.4;
+}
+.trust div b{display:block;font-size:16px;margin-bottom:3px}
+.partners{margin-top:20px}
+.partners .ptitle{font-size:14px;font-weight:800;color:var(--ink);margin-bottom:9px;display:flex;align-items:center;gap:7px}
+.pcard{
+  display:flex;align-items:center;gap:12px;background:var(--card);border:1.5px solid var(--line);
+  border-radius:var(--radius);padding:12px 14px;margin-bottom:9px;text-decoration:none;color:var(--ink);
+  box-shadow:0 2px 8px rgba(150,60,10,.06);transition:transform .12s;
+}
+.pcard:active{transform:scale(.98)}
+.pcard .pico{
+  width:44px;height:44px;border-radius:13px;display:grid;place-items:center;font-size:22px;
+  flex-shrink:0;animation:bounce 3.2s ease-in-out infinite;
+}
+.pcard.p-travel .pico{background:var(--greensoft)}
+.pcard.p-deals .pico{background:var(--redsoft)}
+.pcard .pt1{font-size:13px;font-weight:800}
+.pcard .pt2{font-size:11px;color:var(--mut);line-height:1.45;margin-top:2px}
+.pcard .parr{margin-left:auto;color:var(--red);font-weight:800;font-size:16px;flex-shrink:0}
+.recruit{
+  margin-top:16px;background:linear-gradient(135deg,#FFF6DE,var(--card));
+  border:2px solid var(--yellow);border-radius:var(--radius);padding:15px;
+}
+.recruit h3{font-size:15px;font-weight:800;display:flex;align-items:center;gap:7px}
+.recruit p{font-size:12px;color:#7A6338;line-height:1.55;margin-top:6px}
+.rplans{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:11px}
+.rplan{background:#fff;border:1.5px solid var(--line);border-radius:13px;padding:10px;text-align:center}
+.rplan .rp1{font-size:11px;font-weight:800;color:var(--red)}
+.rplan .rp2{font-family:'Baloo 2';font-size:17px;font-weight:800;color:var(--ink)}
+.rplan .rp3{font-size:9.5px;color:var(--mut);line-height:1.4;margin-top:3px}
+.rbtns{display:flex;gap:8px;margin-top:11px}
+.rbtns a{
+  flex:1;text-align:center;text-decoration:none;border-radius:12px;padding:11px;
+  font-size:12.5px;font-weight:800;font-family:'Be Vietnam Pro';
+}
+.rbtns .r1{background:var(--green);color:#fff;box-shadow:0 3px 0 rgba(0,0,0,.15)}
+.rbtns .r2{background:var(--red);color:#fff;box-shadow:0 3px 0 rgba(0,0,0,.15)}
+
+/* ---------- MODALS ---------- */
+.modal{position:fixed;inset:0;background:rgba(60,10,5,.55);display:none;align-items:flex-end;justify-content:center;z-index:50}
+.modal.show{display:flex}
+.sheet{
+  background:#FFFBEF;width:min(480px,100%);border-radius:22px 22px 0 0;
+  padding:20px 18px 28px;max-height:88dvh;overflow:auto;
+}
+.sheet h3{font-size:18px;font-weight:800;color:var(--ink);margin-bottom:4px}
+.steps{display:flex;gap:6px;margin:10px 0 14px}
+.steps span{flex:1;height:5px;border-radius:9px;background:var(--line)}
+.steps span.on{background:var(--red)}
+.crow{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px dashed var(--line);font-size:14px}
+.qty{display:flex;align-items:center;gap:10px}
+.qty button{width:27px;height:27px;border-radius:8px;border:1.5px solid var(--line);background:#fff;font-weight:800;cursor:pointer;font-size:15px}
+.sumrow{display:flex;justify-content:space-between;font-size:13px;padding:5px 0;color:var(--mut)}
+.sumrow .off{color:var(--red);font-weight:800}
+.sumrow.big{font-weight:800;font-family:'Baloo 2';font-size:18px;color:var(--ink);border-top:1.5px solid var(--line);margin-top:6px;padding-top:10px}
+.vrow{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.depbox{
+  background:var(--greensoft);border:1.5px solid var(--green);border-radius:var(--radius);
+  padding:14px;margin-top:12px;font-size:12.5px;line-height:1.55;
+}
+.depbox b{color:var(--greendark)}
+.qrwrap{text-align:center;margin-top:14px}
+.qrwrap img{width:230px;max-width:80%;border-radius:14px;border:1.5px solid var(--line);background:#fff}
+.qrinfo{font-size:12px;color:var(--mut);margin-top:8px;line-height:1.6}
+.qrinfo b{color:var(--ink)}
+#map{height:300px;border-radius:var(--radius);border:1.5px solid var(--line);margin-top:10px}
+
+/* ---------- CHAT ---------- */
+.chatsheet{display:flex;flex-direction:column;height:78dvh;padding-bottom:14px}
+.chathead{display:flex;align-items:center;gap:10px;padding-bottom:12px;border-bottom:1.5px solid var(--line)}
+.chathead .ava{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;font-size:22px;background:linear-gradient(145deg,#17C46B,var(--green))}
+.chathead .nm{font-family:'Baloo 2';font-weight:800;font-size:16px;color:var(--ink)}
+.chathead .on{font-size:11px;color:var(--green);font-weight:800}
+.chatlog{flex:1;overflow-y:auto;padding:12px 2px;display:flex;flex-direction:column;gap:9px}
+.msg{max-width:82%;padding:10px 13px;border-radius:16px;font-size:13.5px;line-height:1.5;white-space:pre-line}
+.msg.bot{background:#fff;border:1.5px solid var(--line);border-bottom-left-radius:5px;align-self:flex-start}
+.msg.me{background:var(--red);color:#fff;border-bottom-right-radius:5px;align-self:flex-end}
+.quickies{display:flex;flex-wrap:wrap;gap:7px;padding:8px 0}
+.quick{
+  border:1.5px solid var(--green);background:#fff;color:var(--greendark);border-radius:99px;
+  padding:7px 12px;font-size:11.5px;font-weight:800;cursor:pointer;font-family:'Be Vietnam Pro';
+}
+.chatrow{display:flex;gap:8px;padding-top:8px;border-top:1.5px solid var(--line)}
+.chatrow input{flex:1}
+.chatrow button{background:var(--red);border:none;border-radius:12px;width:48px;font-size:18px;cursor:pointer;color:#fff;box-shadow:0 3px 0 rgba(0,0,0,.16)}
+.toast{
+  position:fixed;top:16px;left:50%;transform:translateX(-50%) translateY(-90px);
+  background:var(--reddark);color:#fff;padding:11px 18px;border-radius:99px;font-size:13px;
+  font-weight:700;z-index:99;transition:transform .3s;box-shadow:0 6px 20px rgba(0,0,0,.3);
+  max-width:90%;text-align:center;
+}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.contact{display:block;text-align:center;font-size:11.5px;color:var(--mut);margin-top:16px;text-decoration:none}
+.contact b{color:var(--green)}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<header id="hdr">
+  <div class="brand">
+    <div class="logo"><span class="bike">🛵</span></div>
+    <div>
+      <h1>Goship<span class="num">123</span></h1>
+      <div class="tag">SIÊU APP PHÚ QUỐC · ĐỒ ĂN · XE ÔM · MUA HỘ</div>
+    </div>
+    <a class="zbtn" id="zaloHead" href="#" target="_blank" rel="noopener">💬 Zalo</a>
+  </div>
+
+  <!-- 📞 HOTLINE -->
+  <a class="hotline" href="tel:0775218017">
+    <span class="ring">📞</span>
+    <div>
+      <div class="hl1">HOTLINE / ZALO — 7:00–22:00</div>
+      <div class="hl2">0775 218 017</div>
+    </div>
+    <span class="hl3">GỌI NGAY</span>
+  </a>
+
+  <div class="hsearch">
+    <span class="ic">🔎</span>
+    <input id="shopSearch" placeholder="Hôm nay ăn gì nè? Phở, cơm tấm, bánh mì...">
+  </div>
+  <div class="clockrow">
+    <span class="dot"></span>
+    <b id="clock">--:--:--</b>
+    <span id="dateStr">—</span>
+    <span class="openchip" id="openChip">● ĐANG MỞ CỬA</span>
+  </div>
+</header>
+<div class="tri"></div>
+
+<!-- lưới dịch vụ -->
+<div class="svcgrid">
+  <button class="svc on" data-tab="food"><span class="ic">🍜</span><span class="lb">Đồ ăn</span></button>
+  <button class="svc" data-tab="ride"><span class="ic">🛵</span><span class="lb">Xe ôm</span></button>
+  <button class="svc" data-tab="buy"><span class="ic">🛍️</span><span class="lb">Mua hộ</span></button>
+  <button class="svc" data-tab="orders"><span class="ic">📦</span><span class="lb">Đơn hàng</span></button>
+</div>
+
+<!-- banner khuyến mãi -->
+<div class="banners">
+  <div class="btrack" id="btrack">
+    <div class="bslide b1"><span class="em">🎉</span><div><div class="t1">Freeship đơn đầu tiên!</div><div class="t2">Nhập FREESHIP khi thanh toán — đơn từ 150k</div></div></div>
+    <div class="bslide b2"><span class="em">🦐</span><div><div class="t1">Hải sản Hàm Ninh tươi rói</div><div class="t2">Ghẹ hấp, gỏi cá trích giao tận nơi 30–45'</div></div></div>
+    <div class="bslide b3"><span class="em">🛵</span><div><div class="t1">Xe ôm giá cố định</div><div class="t2">13k mở cửa + 5.5k/km — không kỳ kèo, không tăng giá</div></div></div>
+  </div>
+  <div class="bdots" id="bdots"><span class="on"></span><span></span><span></span></div>
+</div>
+
+<!-- voucher -->
+<div class="vouchers" id="vouchers">
+  <button class="vch" data-v="GIAM5K"><span class="tik">🎟️</span><div><div class="cd">GIAM5K</div><div class="ds">Giảm 5k phí ship mọi đơn</div></div></button>
+  <button class="vch" data-v="FREESHIP"><span class="tik">🚀</span><div><div class="cd">FREESHIP</div><div class="ds">Freeship đơn đồ ăn từ 150k</div></div></button>
+</div>
+
+<!-- thời tiết -->
+<div class="weather" id="weather">
+  <div class="wday"><div class="d">Hôm nay</div><div class="i">⏳</div><div class="t">—</div><div class="r"></div></div>
+  <div class="wday"><div class="d">Ngày mai</div><div class="i">⏳</div><div class="t">—</div><div class="r"></div></div>
+  <div class="wday"><div class="d">Ngày kia</div><div class="i">⏳</div><div class="t">—</div><div class="r"></div></div>
+</div>
+
+<main>
+  <!-- ================= FOOD ================= -->
+  <section class="panel show" id="food">
+    <div class="sec-title"><span class="tridots"><i></i><i></i><i></i></span> Quán uy tín trên Google Maps <span class="pill">HOT</span></div>
+    <div class="cats" id="cats"></div>
+    <!-- 📌 slot ghim quảng cáo -->
+    <a class="pinslot" href="https://zalo.me/0775218017" target="_blank" rel="noopener">
+      <span class="pn">📌</span>
+      <div>
+        <div class="pt1">Quán của bạn ở vị trí này <span class="tag">GHIM TOP</span></div>
+        <div class="pt2">Ghim bài đầu danh sách + badge nổi bật — khách thấy quán bạn TRƯỚC TIÊN. Liên hệ hotline 0775 218 017.</div>
+      </div>
+    </a>
+    <div id="shopList"></div>
+    <div class="pricenote">* Giá món là giá tham khảo — shop báo giá chính xác khi xác nhận đơn</div>
+    <div class="trust">
+      <div><b>🔒</b>Cọc hoàn 100%<br>nếu shop huỷ</div>
+      <div><b>💵</b>Giá cố định<br>không phụ thu</div>
+      <div><b>📞</b>Hotline mỗi ngày<br>0775 218 017</div>
+    </div>
+  </section>
+
+  <!-- ================= RIDE ================= -->
+  <section class="panel" id="ride">
+    <div class="sec-title"><span class="tridots"><i></i><i></i><i></i></span> Gọi xe ôm 🛵</div>
+    <div class="hint">Giá cố định theo khu — 13.000đ mở cửa + 5.500đ/km, không kỳ kèo.</div>
+    <label>Điểm đón</label>
+    <div class="zones" id="zFrom"></div>
+    <button class="gpsbtn" id="rideGps">📍 Ghim vị trí đón chính xác trên bản đồ</button>
+    <label>Điểm đến</label>
+    <div class="zones" id="zTo"></div>
+    <div class="fare">
+      <div class="amt" id="fareAmt">— đ</div>
+      <div class="note" id="fareNote">Chọn điểm đón và điểm đến để xem giá</div>
+    </div>
+    <label>Ghi chú cho tài xế (không bắt buộc)</label>
+    <input id="rideNote" placeholder="VD: đứng trước cổng chợ đêm, áo xanh...">
+    <button class="cta" id="bookRide">Đặt xe — chốt qua Zalo 💬</button>
+  </section>
+
+  <!-- ================= BUY ================= -->
+  <section class="panel" id="buy">
+    <div class="sec-title"><span class="tridots"><i></i><i></i><i></i></span> Mua hộ 🛍️</div>
+    <div class="hint">Để tránh boom đơn, bạn <b>ứng tiền hàng qua chuyển khoản</b>, có mã đơn đối chiếu, hoá đơn chụp gửi kèm — thừa hoàn thiếu bù khi giao.</div>
+    <label>Cần mua gì?</label>
+    <textarea id="buyItems" rows="3" placeholder="VD: 1kg ghẹ Hàm Ninh, 2 chai nước mắm 40N, thuốc hạ sốt..."></textarea>
+    <label>Mua ở đâu? (nếu biết)</label>
+    <input id="buyWhere" placeholder="VD: chợ Dương Đông, nhà thuốc Long Châu...">
+    <label>Tiền hàng dự kiến (đ)</label>
+    <input id="buyEst" type="number" inputmode="numeric" placeholder="VD: 250000" min="0" step="10000">
+    <label>Giao đến</label>
+    <input id="buyAddr" placeholder="Địa chỉ nhận hàng">
+    <button class="gpsbtn" id="buyGps">📍 Ghim vị trí giao trên bản đồ</button>
+    <div class="fare" style="margin-top:14px">
+      <div class="amt" id="buyFee">15.000 đ</div>
+      <div class="note">Phí mua hộ (tự tính theo tiền hàng, chưa gồm ship theo khu)</div>
+    </div>
+    <button class="cta" id="bookBuy">Ứng tiền & gửi đơn 💬</button>
+  </section>
+
+  <!-- ================= ORDERS ================= -->
+  <section class="panel" id="orders">
+    <div class="sec-title"><span class="tridots"><i></i><i></i><i></i></span> Đơn của bạn 📦</div>
+    <div id="orderList"><div class="empty"><span class="big">🐚</span>Chưa có đơn nào.<br>Đặt món đầu tiên đi nè!</div></div>
+  </section>
+
+  <!-- ================= PARTNERS ================= -->
+  <div class="partners">
+    <div class="ptitle">🤝 Đối tác — Hệ sinh thái Kodeeboyzz</div>
+    <a class="pcard p-travel" href="https://kodeeboyzz.com" target="_blank" rel="noopener">
+      <span class="pico">🏝️</span>
+      <div>
+        <div class="pt1">Kodeeboyzz.com — Du lịch Phú Quốc</div>
+        <div class="pt2">Tour đảo, cáp treo, vé tham quan trọn gói — dân địa phương lo từ A–Z, trải nghiệm đảo ngọc giá tốt.</div>
+      </div>
+      <span class="parr">→</span>
+    </a>
+    <a class="pcard p-deals" href="https://vaultadidas-collab.github.io/hubvn-auth/" target="_blank" rel="noopener">
+      <span class="pico">🛍️</span>
+      <div>
+        <div class="pt1">Kodeeboyzz Deals — Shopee chính hãng</div>
+        <div class="pt2">Tổng hợp link shop uy tín trên Shopee Mall: công nghệ, thời trang, gia dụng — mua đúng hàng thật.</div>
+      </div>
+      <span class="parr">→</span>
+    </a>
+
+    <!-- 💼 TUYỂN ĐỐI TÁC -->
+    <div class="recruit">
+      <h3>💼 Tuyển đối tác Goship123</h3>
+      <p><b>Quán ăn & tài xế:</b> lên app hoàn toàn <b>miễn phí</b> — thêm kênh đơn mới mỗi ngày. Muốn nổi bật hơn? Chọn gói ghim bài:</p>
+      <div class="rplans">
+        <div class="rplan">
+          <div class="rp1">📌 GHIM TUẦN</div>
+          <div class="rp2">99k<span style="font-size:10px">/tuần</span></div>
+          <div class="rp3">Ghim đầu danh sách<br>+ badge NỔI BẬT</div>
+        </div>
+        <div class="rplan">
+          <div class="rp1">🔥 GHIM THÁNG</div>
+          <div class="rp2">299k<span style="font-size:10px">/tháng</span></div>
+          <div class="rp3">Ghim top + lên banner<br>+ GoBot gợi ý quán bạn</div>
+        </div>
+      </div>
+      <div class="rbtns">
+        <a class="r1" href="https://zalo.me/0775218017" target="_blank" rel="noopener">💬 Zalo 0775 218 017</a>
+        <a class="r2" href="https://t.me/Kodeeboyzz" target="_blank" rel="noopener">✈️ Telegram</a>
+      </div>
+    </div>
+  </div>
+
+  <a class="contact" href="https://t.me/Kodeeboyzz" target="_blank" rel="noopener">Goship123 · Hotline 0775 218 017 · một sản phẩm của <b>Kodeeboyzz</b></a>
+</main>
+
+<!-- cart bar -->
+<div class="cartbar" id="cartbar">
+  <span>🧺 <span id="cartCount">0</span> món</span>
+  <b id="cartTotal">0đ</b>
+</div>
+
+<button class="botfab" id="botFab" aria-label="Chat với GoBot hỗ trợ">🤖</button>
+
+<!-- checkout modal (food) -->
+<div class="modal" id="cartModal">
+  <div class="sheet">
+    <h3>Đặt đồ ăn 🍜</h3>
+    <div class="steps"><span class="on" id="st1"></span><span id="st2"></span><span id="st3"></span></div>
+
+    <div id="ck1">
+      <div id="cartRows"></div>
+      <div class="vrow" id="cartVouchers"></div>
+      <div class="sumrow"><span>Tạm tính</span><span id="sumFood">0đ</span></div>
+      <div class="sumrow"><span>Ship nội khu</span><span id="sumShip">15.000đ</span></div>
+      <div class="sumrow" id="voffRow" style="display:none"><span>Voucher <b id="voffCode"></b></span><span class="off" id="voffAmt"></span></div>
+      <div class="sumrow big"><span>Tổng</span><span id="sumAll">0đ</span></div>
+      <label>Tên + SĐT của bạn</label>
+      <input id="foodName" placeholder="VD: Anh Tú — 09xxxxxxxx">
+      <label>Giao đến</label>
+      <input id="foodAddr" placeholder="Địa chỉ nhận đồ ăn">
+      <button class="gpsbtn" id="foodGps">📍 Ghim vị trí giao trên bản đồ</button>
+      <button class="cta" id="toDeposit">Tiếp tục → Ứng tiền cọc</button>
+    </div>
+
+    <div id="ck2" style="display:none">
+      <div class="depbox">
+        🔒 Để tránh boom đơn, bạn ứng cọc <b id="depAmtTxt"></b> (<span id="depRuleTxt"></span>).
+        Phần còn lại <b>trả tiền mặt khi nhận</b>. Cọc hoàn 100% nếu quán hết món hoặc bên mình huỷ.
+      </div>
+      <div class="qrwrap">
+        <img id="qrImg" alt="Mã QR chuyển khoản ứng cọc">
+        <div class="qrinfo">
+          Quét bằng app ngân hàng bất kỳ<br>
+          Nội dung CK: <b id="qrMemo"></b> — <u>đừng sửa</u>, để đối chiếu đơn<br>
+          Chủ TK: <b id="qrName"></b> · MB Bank
+        </div>
+      </div>
+      <button class="cta green" id="paidBtn">✅ Đã chuyển — Gửi đơn qua Zalo</button>
+      <button class="cta dark" id="backBtn" style="margin-top:8px">← Quay lại giỏ hàng</button>
+    </div>
+
+    <div id="ck3" style="display:none;text-align:center;padding:14px 0">
+      <div style="font-size:52px">🎉</div>
+      <h3 style="margin:8px 0 6px">Đã gửi đơn <span id="doneCode"></span>!</h3>
+      <p style="font-size:13px;color:var(--mut);line-height:1.6">
+        Nội dung đơn đã <b>tự copy</b> — dán vào Zalo vừa mở là xong.<br>
+        Bấm vào đơn trong mục Đơn hàng để xem <b>hành trình giao trên bản đồ</b> 🗺️
+      </p>
+      <button class="cta" id="doneBtn">Xem đơn của tôi 📦</button>
+    </div>
+  </div>
+</div>
+
+<!-- deposit modal MUA HỘ -->
+<div class="modal" id="buyModal">
+  <div class="sheet">
+    <h3>Ứng tiền mua hộ 🛍️</h3>
+    <div class="depbox">
+      🔒 Ứng trước <b id="bDepAmt"></b> = tiền hàng dự kiến + phí mua hộ.
+      Có hoá đơn/ảnh khi mua — <b>thừa hoàn, thiếu bù</b> lúc giao. Hoàn 100% nếu không mua được.
+    </div>
+    <div class="qrwrap">
+      <img id="bQrImg" alt="Mã QR chuyển khoản ứng tiền mua hộ">
+      <div class="qrinfo">
+        Nội dung CK: <b id="bQrMemo"></b> — <u>đừng sửa</u><br>
+        Chủ TK: <b id="bQrName"></b> · MB Bank
+      </div>
+    </div>
+    <button class="cta green" id="bPaidBtn">✅ Đã chuyển — Gửi đơn qua Zalo</button>
+    <button class="cta dark" id="bCloseBtn" style="margin-top:8px">← Đóng</button>
+  </div>
+</div>
+
+<!-- GPS pin modal -->
+<div class="modal" id="mapModal">
+  <div class="sheet">
+    <h3>Ghim vị trí 📍</h3>
+    <p class="hint" style="margin:4px 0 0">Kéo ghim tới đúng chỗ của bạn, hoặc bấm nút định vị.</p>
+    <div id="map"></div>
+    <button class="cta dark" id="locateBtn">🛰️ Định vị GPS của tôi</button>
+    <button class="cta green" id="mapOk">Xác nhận vị trí này ✅</button>
+  </div>
+</div>
+
+<!-- 🗺️ TRACKING modal — hành trình giao đơn -->
+<div class="modal" id="trackModal">
+  <div class="sheet">
+    <h3 id="tTitle">Hành trình đơn 🗺️</h3>
+    <div id="tmap"></div>
+    <div class="tsteps" id="tSteps"></div>
+    <div class="tnote">ℹ️ Tuyến đường & thời gian là <b>dự kiến</b> theo khoảng cách GPS. Vị trí shipper trực tiếp: bấm gọi hoặc nhắn Zalo bên dưới, shipper chia sẻ vị trí ngay.</div>
+    <div class="rbtns" style="margin-top:10px">
+      <a class="r1" href="tel:0775218017">📞 Gọi hotline</a>
+      <a class="r2" href="https://zalo.me/0775218017" target="_blank" rel="noopener">💬 Hỏi vị trí shipper</a>
+    </div>
+    <button class="cta dark" id="tClose" style="margin-top:10px">← Đóng</button>
+  </div>
+</div>
+
+<!-- CHAT BOT modal -->
+<div class="modal" id="botModal">
+  <div class="sheet chatsheet">
+    <div class="chathead">
+      <div class="ava">🤖</div>
+      <div>
+        <div class="nm">GoBot — hỗ trợ Goship123</div>
+        <div class="on">● Đang hoạt động · trả lời ngay</div>
+      </div>
+    </div>
+    <div class="chatlog" id="chatlog"></div>
+    <div class="quickies" id="quickies"></div>
+    <div class="chatrow">
+      <input id="chatInput" placeholder="Nhắn gì đó cho GoBot...">
+      <button id="chatSend" aria-label="Gửi">➤</button>
+    </div>
+  </div>
+</div>
+
+<nav>
+  <button class="on" data-tab="food"><span class="i">🍜</span>Đồ ăn</button>
+  <button data-tab="ride"><span class="i">🛵</span>Xe ôm</button>
+  <button data-tab="buy"><span class="i">🛍️</span>Mua hộ</button>
+  <button data-tab="orders"><span class="i">📦</span>Đơn</button>
+</nav>
+
+<div class="toast" id="toast"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+/* ═══════════════ CONFIG ═══════════════ */
+const CONFIG = {
+  HOTLINE    : "0775218017",
+  ZALO_PHONE : "0775218017",
+  BANK_ID    : "MB",
+  BANK_ACC   : "5524520420",
+  BANK_NAME  : "VO QUOC CUONG",
+  SHIP_FEE   : 15000,
+  DEP_RATE   : 0.30,
+  DEP_MIN    : 20000,
+  OPEN_HOUR  : 7,
+  CLOSE_HOUR : 22,
+  /* 🔔 Thông báo Telegram: @BotFather tạo bot lấy token, @userinfobot lấy chat id */
+  TG_BOT_TOKEN : "",
+  TG_CHAT_ID   : "",
+};
+/* ═══════════════════════════════════════ */
+
+document.getElementById('zaloHead').href = "https://zalo.me/"+CONFIG.ZALO_PHONE;
+
+/* ---------- 🍜✨ HIỆU ỨNG 3D ---------- */
+(function(){
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  const hdr=document.getElementById('hdr');
+  const foods=["🍜","🍕","🦐","🦀","🥤","🍢","🍧","🧋","🥖"];
+  /* đồ ăn rơi 3D trong header — mỗi món có chiều sâu (--z), món xa nhỏ + mờ hơn */
+  for(let i=0;i<10;i++){
+    const s=document.createElement('span');s.className='fall';
+    s.textContent=foods[i%foods.length];
+    const z=Math.round(-140+Math.random()*220);           // độ sâu -140px..80px
+    s.style.setProperty('--z',z+"px");
+    s.style.left=(4+Math.random()*90)+"%";
+    s.style.fontSize=(13+(z+140)/220*9)+"px";             // gần to, xa nhỏ
+    if(z<-60)s.style.filter="blur(1px) drop-shadow(0 3px 4px rgba(0,0,0,.3))"; // xa thì mờ
+    s.style.animationDuration=(8+Math.random()*7)+"s";
+    s.style.animationDelay=(Math.random()*9)+"s";
+    hdr.appendChild(s);
+  }
+  for(let i=0;i<7;i++){
+    const s=document.createElement('span');s.className='spark';s.textContent="✨";
+    s.style.left=(3+Math.random()*92)+"%";
+    s.style.top=(8+Math.random()*75)+"%";
+    s.style.animationDuration=(2+Math.random()*2.5)+"s";
+    s.style.animationDelay=(Math.random()*3)+"s";
+    hdr.appendChild(s);
+  }
+  /* 🌐 lớp 3D rơi TOÀN TRANG — vài món lộn nhào nhẹ nhàng, mờ để không che chữ */
+  const bg=document.createElement('div');bg.className='bg3d';bg.setAttribute('aria-hidden','true');
+  const drops=["🥥","🍍","🍋","⭐","🍀","🛵","🦐","🍕"];
+  for(let i=0;i<8;i++){
+    const s=document.createElement('span');
+    s.textContent=drops[i%drops.length];
+    const depth=Math.random();                             // 0 xa .. 1 gần
+    s.style.left=(2+Math.random()*94)+"%";
+    s.style.fontSize=(12+depth*14)+"px";
+    s.style.opacity=(0.18+depth*0.22).toFixed(2);          // rất nhẹ, không rối mắt
+    if(depth<0.4)s.style.filter="blur(1.2px)";
+    s.style.animationDuration=(14+Math.random()*12)+"s";
+    s.style.animationDelay=(-Math.random()*20)+"s";        // delay âm → rải sẵn khắp màn
+    bg.appendChild(s);
+  }
+  document.body.appendChild(bg);
+})();
+
+/* ---------- 🖼️ BANNER TỰ CHẠY ---------- */
+let bIdx=0;
+setInterval(()=>{
+  bIdx=(bIdx+1)%3;
+  document.getElementById('btrack').style.transform=`translateX(-${bIdx*100}%)`;
+  document.querySelectorAll('#bdots span').forEach((d,i)=>d.classList.toggle('on',i===bIdx));
+},4200);
+
+/* ---------- ⏰ ĐỒNG HỒ + MỞ CỬA ---------- */
+const DAYS_VN=["Chủ nhật","Thứ hai","Thứ ba","Thứ tư","Thứ năm","Thứ sáu","Thứ bảy"];
+function tick(){
+  const n=new Date();
+  document.getElementById('clock').textContent=n.toLocaleTimeString('vi-VN',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+  document.getElementById('dateStr').textContent=`${DAYS_VN[n.getDay()]}, ${n.getDate()}/${n.getMonth()+1}`;
+  const open=n.getHours()>=CONFIG.OPEN_HOUR&&n.getHours()<CONFIG.CLOSE_HOUR;
+  const chip=document.getElementById('openChip');
+  chip.textContent=open?"● ĐANG MỞ CỬA":`ĐÓNG — mở ${CONFIG.OPEN_HOUR}:00`;
+  chip.classList.toggle('closed',!open);
+}
+tick();setInterval(tick,1000);
+
+/* ---------- 🌦️ THỜI TIẾT 3 NGÀY (Open-Meteo) ---------- */
+const WMO=(c)=>{
+  if(c===0)return["☀️","Nắng đẹp"];
+  if(c<=2)return["🌤️","Ít mây"];
+  if(c===3)return["☁️","Nhiều mây"];
+  if(c<=48)return["🌫️","Sương mù"];
+  if(c<=57)return["🌦️","Mưa phùn"];
+  if(c<=67)return["🌧️","Mưa"];
+  if(c<=82)return["🌧️","Mưa rào"];
+  if(c<=99)return["⛈️","Dông"];
+  return["🌤️",""];
+};
+fetch("https://api.open-meteo.com/v1/forecast?latitude=10.2899&longitude=103.984&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=Asia%2FBangkok&forecast_days=3")
+.then(r=>r.json()).then(d=>{
+  const w=document.querySelectorAll('#weather .wday');
+  const names=["Hôm nay","Ngày mai","Ngày kia"];
+  d.daily.time.forEach((t,i)=>{
+    if(!w[i])return;
+    const[ic,tx]=WMO(d.daily.weathercode[i]);
+    w[i].querySelector('.d').textContent=names[i];
+    w[i].querySelector('.i').textContent=ic;
+    w[i].querySelector('.i').title=tx;
+    w[i].querySelector('.t').textContent=`${Math.round(d.daily.temperature_2m_min[i])}–${Math.round(d.daily.temperature_2m_max[i])}°C`;
+    w[i].querySelector('.r').textContent=`💧${d.daily.precipitation_probability_max[i]??0}%`;
+  });
+}).catch(()=>{document.getElementById('weather').style.display='none';});
+
+/* ---------- 🍜 QUÁN THẬT TỪ GOOGLE MAPS (thêm pin:true để ghim quán trả phí lên top) ---------- */
+const SHOPS=[
+ {name:"Bún Quậy Kiến Xây (Bạch Đằng)",area:"Dương Đông",cat:"Bún/Món nước",rate:4.2,rc:"6,3k đánh giá",gm:"https://maps.google.com/?q=Bún+quậy+Kiến+Xây+28+Bạch+Đằng+Phú+Quốc",dishes:[["Bún quậy tôm",45000],["Bún quậy đặc biệt",65000],["Bún quậy mực",50000]]},
+ {name:"Bún Quậy Bạch Đằng",area:"Dương Đông",cat:"Bún/Món nước",rate:4.9,rc:"242 đánh giá",gm:"https://maps.google.com/?q=Bún+Quậy+Bạch+Đằng+32A+Phú+Quốc",dishes:[["Bún quậy thường",40000],["Bún quậy đầy đủ",60000],["Nước mía",15000]]},
+ {name:"The Home Pizza (Trần Hưng Đạo)",area:"Dương Đông",cat:"Pizza/Âu",rate:4.8,rc:"7,5k đánh giá",gm:"https://maps.google.com/?q=The+Home+Pizza+129+Trần+Hưng+Đạo+Phú+Quốc",dishes:[["Pizza bò Việt Nam",165000],["Pizza pepperoni",155000],["Mì Ý tôm cua",145000],["Salad burrata",120000]]},
+ {name:"Hương Biển Restaurant",area:"Dương Đông",cat:"Hải sản",rate:4.7,rc:"780 đánh giá",gm:"https://maps.google.com/?q=Huong+Bien+Restaurant+1+Võ+Thị+Sáu+Phú+Quốc",dishes:[["Chả giò cua & thịt",95000],["Tôm sú sốt me",220000],["Gỏi cá trích",110000],["Rau muống xào tỏi",45000]]},
+ {name:"Phượng Hoàng Seafood",area:"Dương Đông",cat:"Hải sản",rate:4.5,rc:"1,9k đánh giá",gm:"https://maps.google.com/?q=Phuong+Hoang+Seafood+127G+Trần+Hưng+Đạo+Phú+Quốc",dishes:[["Hàu nướng phô mai (4c)",100000],["Cơm chiên ghẹ",95000],["Cháo tôm hùm",250000]]},
+ {name:"Xin Chào Seafood",area:"Dương Đông",cat:"Hải sản",rate:4.2,rc:"5k đánh giá",gm:"https://maps.google.com/?q=Xin+Chao+seafood+66+Trần+Hưng+Đạo+Phú+Quốc",dishes:[["Cá bớp nướng tỏi ớt",280000],["Cua rang me",350000],["Lẩu hải sản",320000]]},
+ {name:"Vua Hải Sản (Grand World)",area:"Bãi Dài",cat:"Hải sản",rate:4.8,rc:"2k đánh giá",gm:"https://maps.google.com/?q=Vua+Hải+Sản+Grand+World+Phú+Quốc",dishes:[["Tôm hùm nướng bơ tỏi",550000],["Sò điệp nướng mỡ hành",90000],["Lẩu cá bớp",350000]]},
+ {name:"Nhà Bè Ngọc Hân (Hàm Ninh)",area:"Hàm Ninh",cat:"Hải sản",rate:4.5,rc:"109 đánh giá",gm:"https://maps.google.com/?q=Nhà+Bè+Hải+sản+Ngọc+Hân+Hàm+Ninh+Phú+Quốc",dishes:[["Ghẹ Hàm Ninh hấp (1kg)",300000],["Cơm chiên ghẹ",90000],["Cá kho tộ",120000]]},
+ {name:"Dê Ngon Dương Đông 2",area:"Dương Đông",cat:"Cơm/Lẩu",rate:4.1,rc:"288 đánh giá",gm:"https://maps.google.com/?q=Dê+Ngon+Dương+Đông+2+Phan+Đình+Phùng+Phú+Quốc",dishes:[["Dê nướng (phần)",180000],["Lẩu dê",280000],["Dê xào lăn",150000]]},
+ {name:"Phương Đông Quán (Bãi Khem)",area:"An Thới",cat:"Hải sản",rate:4.5,rc:"144 đánh giá",gm:"https://maps.google.com/?q=Phương+Đông+quán+An+Thới+Phú+Quốc",dishes:[["Gỏi cá trích (best)",100000],["Mực nướng",150000],["Cá nướng bếp than",180000]]},
+ {name:"Chuồn Chuồn Bistro & Bar",area:"Dương Đông (đồi)",cat:"Pizza/Âu",rate:4.3,rc:"6,1k đánh giá",gm:"https://maps.google.com/?q=Chuồn+Chuồn+Bistro+Bar+Phú+Quốc",dishes:[["Bánh mì nấm",95000],["Mì Ý bò bằm",145000],["Nước ép trái cây",55000]]},
+ {name:"The Cloud Coffee",area:"Dương Đông",cat:"Cà phê/Đồ uống",rate:4.7,rc:"366 đánh giá",gm:"https://maps.google.com/?q=The+Cloud+Coffee+126a+Trần+Hưng+Đạo+Phú+Quốc",dishes:[["Cloud coffee (cà phê dừa)",55000],["Matcha đá",50000],["Cà phê trứng",45000]]},
+ {name:"ANBA Coffee",area:"Dương Đông",cat:"Cà phê/Đồ uống",rate:4.6,rc:"1,3k đánh giá",gm:"https://maps.google.com/?q=ANBA+Coffee+131+Trần+Hưng+Đạo+Phú+Quốc",dishes:[["Matcha Coco",55000],["Bạc xỉu",40000],["Bánh tôm",65000]]},
+ {name:"Cơm Tấm 100 THĐ",area:"Dương Đông",cat:"Cơm/Lẩu",rate:4.8,rc:"198 đánh giá",gm:"https://maps.google.com/?q=Com+Tam+100+Trần+Hưng+Đạo+Phú+Quốc",dishes:[["Cơm tấm sườn bì chả",50000],["Bún thịt nướng",50000],["Trà đá",5000]]},
+ {name:"Cơm Tấm Bình Ký 2 (24/7)",area:"Dương Đông",cat:"Cơm/Lẩu",rate:4.4,rc:"89 đánh giá · mở 24h",gm:"https://maps.google.com/?q=Cơm+Tấm+Bình+Ký+2+30+Tháng+4+Phú+Quốc",dishes:[["Cơm tấm sườn",35000],["Cơm sườn trứng",40000],["Canh rau",10000]]},
+ {name:"Cơm Tấm Nhị",area:"Dương Đông",cat:"Cơm/Lẩu",rate:4.6,rc:"93 đánh giá",gm:"https://maps.google.com/?q=Cơm+tấm+Nhị+Nguyễn+Trung+Trực+Phú+Quốc",dishes:[["Cơm tấm sườn cây",35000],["Cơm thêm",5000]]},
+ {name:"Phở Hòa",area:"Dương Đông",cat:"Bún/Món nước",rate:4.8,rc:"878 đánh giá",gm:"https://maps.google.com/?q=Phở+Hòa+128D+Trần+Hưng+Đạo+Phú+Quốc",dishes:[["Phở bò đặc biệt",60000],["Phở tái",50000],["Sinh tố mãng cầu",35000]]},
+ {name:"Phở Lý Quốc Sư",area:"Dương Đông",cat:"Bún/Món nước",rate:4.6,rc:"489 đánh giá",gm:"https://maps.google.com/?q=Phở+Lý+Quốc+Sư+65+30+Tháng+4+Phú+Quốc",dishes:[["Phở bò",55000],["Phở xào bò",65000]]},
+ {name:"Phở Bát Đá Phú Gia",area:"An Thới",cat:"Bún/Món nước",rate:4.8,rc:"431 đánh giá",gm:"https://maps.google.com/?q=Phở+Bát+Đá+Phú+Gia+332+Nguyễn+Văn+Cừ+Phú+Quốc",dishes:[["Phở bát đá",75000],["Phở bò thường",55000]]},
+ {name:"Phở Hồng Anh",area:"Dương Đông",cat:"Bún/Món nước",rate:3.9,rc:"338 đánh giá",gm:"https://maps.google.com/?q=Phở+Hồng+Anh+107+Trần+Hưng+Đạo+Phú+Quốc",dishes:[["Phở bò",50000],["Bánh canh ghẹ",55000],["Bò kho",60000]]},
+ {name:"Bánh Mì Hương Sài Gòn",area:"Dương Đông",cat:"Bánh mì",rate:4.9,rc:"292 đánh giá",gm:"https://maps.google.com/?q=Bánh+Mì+Hương+Sài+Gòn+6+Nguyễn+Trãi+Phú+Quốc",dishes:[["Bánh mì thịt",25000],["Bánh mì đặc biệt",35000]]},
+ {name:"Bánh Mì Woman",area:"Dương Đông",cat:"Bánh mì",rate:5.0,rc:"120 đánh giá",gm:"https://maps.google.com/?q=Bahn+mi+Woman+Trần+Hưng+Đạo+Phú+Quốc",dishes:[["Bánh mì gà",25000],["Bánh mì heo trứng",30000],["Nước cam vắt",20000]]},
+ {name:"Bánh Mì & You",area:"Cửa Lấp",cat:"Bánh mì",rate:4.8,rc:"688 đánh giá",gm:"https://maps.google.com/?q=Bánh+Mì+%26+You+Cửa+Lấp+Phú+Quốc",dishes:[["Bánh mì fusion",65000],["Burger",95000],["Cà phê dừa",45000]]},
+ {name:"Bếp Chay Nhà An",area:"Dương Đông",cat:"Chay",rate:4.9,rc:"342 đánh giá",gm:"https://maps.google.com/?q=Bếp+Chay+Nhà+An+29+Trần+Hưng+Đạo+Phú+Quốc",dishes:[["Xôi mặn chay",45000],["Phở áp chảo chay",65000],["Gỏi bắp chuối",55000]]},
+ {name:"Cơm Chay Hiền Đức",area:"Dương Đông",cat:"Chay",rate:4.9,rc:"48 đánh giá",gm:"https://maps.google.com/?q=Cơm+Chay+Hiền+Đức+149+Trần+Hưng+Đạo+Phú+Quốc",dishes:[["Cơm chay",30000],["Gỏi cuốn chay",30000],["Bánh xèo chay",40000]]},
+ {name:"Trà Sữa Ơi",area:"Dương Đông",cat:"Cà phê/Đồ uống",rate:4.7,rc:"44 đánh giá",gm:"https://maps.google.com/?q=Trà+sữa+Ơi+09+Hùng+Vương+Phú+Quốc",dishes:[["Trà sữa trân châu",30000],["Matcha latte trân châu",35000]]},
+ {name:"Soul Match Matcha & Coffee",area:"Dương Đông",cat:"Cà phê/Đồ uống",rate:5.0,rc:"341 đánh giá",gm:"https://maps.google.com/?q=Soul+Match+117+Lý+Thường+Kiệt+Phú+Quốc",dishes:[["Matcha đá",45000],["Latte",40000],["Trà vải",40000]]},
+ {name:"Chè Nhà Jun",area:"Dương Đông",cat:"Chè/Ăn vặt",rate:4.8,rc:"279 đánh giá",gm:"https://maps.google.com/?q=Chè+Nhà+Jun+9+Lý+Thường+Kiệt+Phú+Quốc",dishes:[["Chè bánh lọt",25000],["Chè pandan",25000],["Chè thập cẩm",30000]]},
+ {name:"Chè Nhà Cổ",area:"Dương Đông",cat:"Chè/Ăn vặt",rate:4.1,rc:"163 đánh giá",gm:"https://maps.google.com/?q=Chè+Nhà+Cổ+14+Bạch+Đằng+Phú+Quốc",dishes:[["Chè Thái",30000],["Chè thập cẩm",25000]]},
+];
+const CATS=["Tất cả","Hải sản","Bún/Món nước","Cơm/Lẩu","Bánh mì","Pizza/Âu","Chay","Cà phê/Đồ uống","Chè/Ăn vặt"];
+let curCat="Tất cả";
+
+const ZONES=["Dương Đông","Bãi Trường","An Thới","Hàm Ninh","Cửa Cạn","Gành Dầu","Ông Lang"];
+const ZONE_XY={"Dương Đông":[10.216,103.960],"Bãi Trường":[10.130,103.972],"An Thới":[10.020,104.014],
+"Hàm Ninh":[10.180,104.050],"Cửa Cạn":[10.320,103.930],"Gành Dầu":[10.360,103.850],"Ông Lang":[10.258,103.940],"Bãi Dài":[10.327,103.863],"Cửa Lấp":[10.188,103.970]};
+const KM={"Dương Đông":{"Dương Đông":2,"Bãi Trường":8,"An Thới":25,"Hàm Ninh":14,"Cửa Cạn":12,"Gành Dầu":28,"Ông Lang":7},
+"Bãi Trường":{"Bãi Trường":2,"An Thới":17,"Hàm Ninh":18,"Cửa Cạn":20,"Gành Dầu":36,"Ông Lang":15},
+"An Thới":{"An Thới":2,"Hàm Ninh":24,"Cửa Cạn":37,"Gành Dầu":53,"Ông Lang":32},
+"Hàm Ninh":{"Hàm Ninh":2,"Cửa Cạn":26,"Gành Dầu":42,"Ông Lang":18},
+"Cửa Cạn":{"Cửa Cạn":2,"Gành Dầu":16,"Ông Lang":6},
+"Gành Dầu":{"Gành Dầu":2,"Ông Lang":22},
+"Ông Lang":{"Ông Lang":2}};
+const BASE=13000, PER_KM=5500;
+const fmt=n=>Math.round(n).toLocaleString('vi-VN')+"đ";
+const genCode=()=> "GS"+Date.now().toString(36).toUpperCase().slice(-6);
+function havKm(a,b){
+  const R=6371,dLa=(b[0]-a[0])*Math.PI/180,dLo=(b[1]-a[1])*Math.PI/180;
+  const x=Math.sin(dLa/2)**2+Math.cos(a[0]*Math.PI/180)*Math.cos(b[0]*Math.PI/180)*Math.sin(dLo/2)**2;
+  return R*2*Math.atan2(Math.sqrt(x),Math.sqrt(1-x));
+}
+
+let cart={}, orders=[], zFrom=null, zTo=null, voucher=null;
+let gps={food:null, ride:null, buy:null};
+let mapTarget=null, pinMap=null, pinMarker=null;
+let trackMap=null, trackLayers=[], trackAnim=null;
+let pendingFood=null, pendingBuy=null;
+
+/* ---------- TABS ---------- */
+document.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>{
+  const t=b.dataset.tab;
+  document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('show',p.id===t));
+  document.querySelectorAll('nav button').forEach(n=>n.classList.toggle('on',n.dataset.tab===t));
+  document.querySelectorAll('.svc').forEach(n=>n.classList.toggle('on',n.dataset.tab===t));
+  window.scrollTo({top:0});
+}));
+
+/* ---------- VOUCHERS ---------- */
+function shipAfterVoucher(goods){
+  if(voucher==="GIAM5K")return Math.max(0,CONFIG.SHIP_FEE-5000);
+  if(voucher==="FREESHIP"&&goods>=150000)return 0;
+  return CONFIG.SHIP_FEE;
+}
+function toggleVoucher(v){
+  voucher=(voucher===v)?null:v;
+  document.querySelectorAll('.vch').forEach(x=>x.classList.toggle('on',(x.dataset.v||x.dataset.cv)===voucher));
+  renderCart();
+  toast(voucher?`Đã áp dụng ${voucher} 🎟️`:"Đã bỏ voucher");
+}
+document.querySelectorAll('#vouchers .vch').forEach(b=>b.addEventListener('click',()=>toggleVoucher(b.dataset.v)));
+
+/* ---------- CATEGORY ---------- */
+const catsEl=document.getElementById('cats');
+CATS.forEach(c=>{
+  const b=document.createElement('button');b.className='cat'+(c===curCat?' on':'');b.textContent=c;
+  b.addEventListener('click',()=>{curCat=c;catsEl.querySelectorAll('.cat').forEach(x=>x.classList.toggle('on',x.textContent===c));renderShops(document.getElementById('shopSearch').value);});
+  catsEl.appendChild(b);
+});
+
+/* ---------- FOOD LIST + SEARCH (quán pin:true tự lên top + badge 📌) ---------- */
+const shopList=document.getElementById('shopList');
+const hi=(txt,q)=>q?txt.replace(new RegExp("("+q.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")+")","gi"),"<mark>$1</mark>"):txt;
+function renderShops(q=""){
+  const ql=q.trim().toLowerCase();
+  shopList.innerHTML="";
+  let idx=0;
+  const list=SHOPS.map((s,si)=>({s,si})).sort((a,b)=>(b.s.pin?1:0)-(a.s.pin?1:0));
+  list.forEach(({s,si})=>{
+    if(curCat!=="Tất cả"&&s.cat!==curCat)return;
+    const shopHit=s.name.toLowerCase().includes(ql);
+    const dishes=s.dishes.map((d,di)=>({d,di})).filter(x=>!ql||shopHit||x.d[0].toLowerCase().includes(ql));
+    if(ql&&!shopHit&&!dishes.length)return;
+    const el=document.createElement('div');el.className='shop';el.style.setProperty('--i',idx++);
+    el.innerHTML=`<div class="shop-head"><h3>${s.pin?'📌 ':''}${hi(s.name,q.trim())}</h3><span class="area">📍 ${s.area}</span></div>
+      <div class="rating">⭐ ${s.rate} · ${s.rc}${s.pin?' · <span style="color:var(--yellowdark)">TÀI TRỢ</span>':''} · <a href="${s.gm}" target="_blank" rel="noopener">Maps ↗</a></div>`+
+      dishes.map(({d,di})=>`<div class="dish"><div><div class="nm">${hi(d[0],q.trim())}</div><div class="pr">${fmt(d[1])} *</div></div><button class="addbtn" data-s="${si}" data-d="${di}">+ Thêm</button></div>`).join('');
+    shopList.appendChild(el);
+  });
+  if(!shopList.children.length)shopList.innerHTML='<div class="empty"><span class="big">🦀</span>Không tìm thấy món này...<br>Thử từ khoá khác hoặc đặt "Mua hộ" nha!</div>';
+}
+renderShops();
+document.getElementById('shopSearch').addEventListener('input',e=>{
+  if(!document.getElementById('food').classList.contains('show'))document.querySelector('nav [data-tab="food"]').click();
+  renderShops(e.target.value);
+});
+shopList.addEventListener('click',e=>{
+  const b=e.target.closest('.addbtn');if(!b)return;
+  const key=b.dataset.s+"-"+b.dataset.d;
+  cart[key]=(cart[key]||0)+1;renderCart();toast("Đã thêm vào giỏ 🧺");
+});
+
+/* ---------- CART ---------- */
+const cartbar=document.getElementById('cartbar');
+function cartItems(){return Object.entries(cart).filter(([,q])=>q>0).map(([k,q])=>{
+  const[si,di]=k.split('-');const dish=SHOPS[si].dishes[di];
+  return{key:k,name:dish[0],shop:SHOPS[si].name,area:SHOPS[si].area,price:dish[1],qty:q};
+});}
+function renderCart(){
+  const items=cartItems();
+  const n=items.reduce((a,i)=>a+i.qty,0);
+  const goods=items.reduce((a,i)=>a+i.price*i.qty,0);
+  const ship=shipAfterVoucher(goods);
+  document.getElementById('cartCount').textContent=n;
+  document.getElementById('cartTotal').textContent=fmt(goods+(n?ship:0));
+  cartbar.classList.toggle('show',n>0);
+  document.getElementById('cartRows').innerHTML=items.map(i=>`<div class="crow"><div>${i.name}<br><small style="color:var(--mut)">${i.shop} · ${fmt(i.price)}</small></div>
+    <div class="qty"><button data-k="${i.key}" data-a="-1">−</button><b>${i.qty}</b><button data-k="${i.key}" data-a="1">+</button></div></div>`).join('');
+  document.getElementById('cartVouchers').innerHTML=["GIAM5K","FREESHIP"].map(v=>
+    `<button class="vch${voucher===v?' on':''}" data-cv="${v}"><span class="tik">🎟️</span><div><div class="cd">${v}</div><div class="ds">${v==="GIAM5K"?"-5k ship":"Freeship đơn ≥150k"}</div></div></button>`).join('');
+  const off=CONFIG.SHIP_FEE-ship;
+  document.getElementById('voffRow').style.display=off>0?'flex':'none';
+  document.getElementById('voffCode').textContent=voucher||"";
+  document.getElementById('voffAmt').textContent="-"+fmt(off);
+  document.getElementById('sumFood').textContent=fmt(goods);
+  document.getElementById('sumShip').textContent=fmt(CONFIG.SHIP_FEE);
+  document.getElementById('sumAll').textContent=fmt(goods+(n?ship:0));
+}
+cartbar.addEventListener('click',()=>{setStep(1);document.getElementById('cartModal').classList.add('show');});
+document.getElementById('cartModal').addEventListener('click',e=>{
+  if(e.target.id==='cartModal')e.target.classList.remove('show');
+  const cv=e.target.closest('[data-cv]');
+  if(cv)return toggleVoucher(cv.dataset.cv);
+  const b=e.target.closest('[data-k]');
+  if(b){cart[b.dataset.k]=Math.max(0,(cart[b.dataset.k]||0)+ +b.dataset.a);renderCart();
+    if(!cartItems().length)document.getElementById('cartModal').classList.remove('show');}
+});
+function setStep(n){
+  ['ck1','ck2','ck3'].forEach((id,i)=>document.getElementById(id).style.display=(i===n-1)?'block':'none');
+  ['st1','st2','st3'].forEach((id,i)=>document.getElementById(id).classList.toggle('on',i<n));
+}
+
+/* ---------- VietQR + Maps ---------- */
+function qrUrl(amount,memo){
+  return `https://img.vietqr.io/image/${CONFIG.BANK_ID}-${CONFIG.BANK_ACC}-compact2.png?amount=${Math.round(amount)}&addInfo=${encodeURIComponent(memo)}&accountName=${encodeURIComponent(CONFIG.BANK_NAME)}`;
+}
+function gmaps(p){return p?`https://maps.google.com/?q=${p.lat.toFixed(6)},${p.lng.toFixed(6)}`:null;}
+
+/* ---------- FOOD CHECKOUT ---------- */
+document.getElementById('toDeposit').addEventListener('click',()=>{
+  const addr=document.getElementById('foodAddr').value.trim();
+  const name=document.getElementById('foodName').value.trim();
+  if(!name)return toast("Cho xin tên + SĐT nha! 📱");
+  if(!addr)return toast("Nhập địa chỉ giao nha! 📍");
+  const items=cartItems();
+  const goods=items.reduce((a,i)=>a+i.price*i.qty,0);
+  const ship=shipAfterVoucher(goods);
+  const total=goods+ship;
+  const dep=Math.max(CONFIG.DEP_MIN,Math.ceil(total*CONFIG.DEP_RATE/1000)*1000);
+  const code=genCode();
+  pendingFood={code,items,name,addr,total,dep,ship,voucher,gps:gps.food};
+  document.getElementById('depAmtTxt').textContent=fmt(dep);
+  document.getElementById('depRuleTxt').textContent=`${CONFIG.DEP_RATE*100}% đơn, tối thiểu ${fmt(CONFIG.DEP_MIN)}`;
+  document.getElementById('qrImg').src=qrUrl(dep,code);
+  document.getElementById('qrMemo').textContent=code;
+  document.getElementById('qrName').textContent=CONFIG.BANK_NAME;
+  setStep(2);
+});
+document.getElementById('backBtn').addEventListener('click',()=>setStep(1));
+document.getElementById('paidBtn').addEventListener('click',()=>{
+  const o=pendingFood;if(!o)return;
+  const msg=`🍜 ĐƠN ĐỒ ĂN ${o.code} (Goship123)
+Khách: ${o.name}
+${o.items.map(i=>`• ${i.qty}x ${i.name} — ${i.shop}`).join("\n")}
+Ship: ${fmt(o.ship)}${o.voucher?` (voucher ${o.voucher})`:""}
+Tổng (tham khảo): ${fmt(o.total)} | Đã cọc: ${fmt(o.dep)} (CK: ${o.code})
+📍 Giao: ${o.addr}${o.gps?`\n🗺️ GPS: ${gmaps(o.gps)}`:""}`;
+  notify(msg);
+  sendZalo(msg);
+  const fromXY=ZONE_XY[o.items[0].area]||ZONE_XY["Dương Đông"];
+  const toXY=o.gps?[o.gps.lat,o.gps.lng]:ZONE_XY["Dương Đông"];
+  addOrder("🍜 Đồ ăn",o.code,o.items.map(i=>i.qty+"x "+i.name).join(", ")+" → "+o.addr,o.total,o.dep,"Chờ xác nhận cọc",
+    {from:fromXY,to:toXY,fromName:"Quán: "+o.items[0].shop,toName:"Giao: "+o.addr});
+  cart={};voucher=null;renderCart();
+  document.querySelectorAll('.vch').forEach(x=>x.classList.remove('on'));
+  document.getElementById('doneCode').textContent=o.code;
+  setStep(3);
+});
+document.getElementById('doneBtn').addEventListener('click',()=>{
+  document.getElementById('cartModal').classList.remove('show');
+  document.querySelector('nav [data-tab="orders"]').click();
+});
+
+/* ---------- RIDE ---------- */
+function chipRow(el,onPick){
+  ZONES.forEach(z=>{
+    const b=document.createElement('button');b.className='zone';b.textContent=z;
+    b.addEventListener('click',()=>{el.querySelectorAll('.zone').forEach(x=>x.classList.remove('on'));b.classList.add('on');onPick(z);});
+    el.appendChild(b);
+  });
+}
+chipRow(document.getElementById('zFrom'),z=>{zFrom=z;calcFare();});
+chipRow(document.getElementById('zTo'),z=>{zTo=z;calcFare();});
+function km(a,b){return (KM[a]&&KM[a][b])??(KM[b]&&KM[b][a])??10;}
+function calcFare(){
+  if(!zFrom||!zTo)return;
+  const d=km(zFrom,zTo), f=BASE+d*PER_KM;
+  document.getElementById('fareAmt').textContent=fmt(f);
+  document.getElementById('fareNote').textContent=`${zFrom} → ${zTo} · ~${d}km · giá cố định`;
+}
+document.getElementById('bookRide').addEventListener('click',()=>{
+  if(!zFrom||!zTo)return toast("Chọn điểm đón & điểm đến đã! 🛵");
+  const d=km(zFrom,zTo), f=BASE+d*PER_KM;
+  const note=document.getElementById('rideNote').value.trim();
+  const code=genCode();
+  const msg=`🛵 ĐẶT XE ÔM ${code} (Goship123)
+Đón: ${zFrom}${gps.ride?`\n🗺️ GPS đón: ${gmaps(gps.ride)}`:""}
+Đến: ${zTo}
+Giá: ${fmt(f)} (trả tài xế)${note?`\nGhi chú: ${note}`:""}`;
+  notify(msg);
+  sendZalo(msg);
+  addOrder("🛵 Xe ôm",code,`${zFrom} → ${zTo}${note?" · "+note:""}`,f,0,"Chờ tài xế nhận",
+    {from:gps.ride?[gps.ride.lat,gps.ride.lng]:ZONE_XY[zFrom],to:ZONE_XY[zTo],fromName:"Đón: "+zFrom,toName:"Đến: "+zTo});
+  toast("Đã copy đơn — dán vào Zalo nha! 💬");
+});
+
+/* ---------- BUY ---------- */
+function buyFee(est){
+  if(est<=100000)return 15000;
+  if(est<=300000)return 25000;
+  if(est<=500000)return 35000;
+  return Math.max(45000,Math.ceil(est*0.08/1000)*1000);
+}
+document.getElementById('buyEst').addEventListener('input',e=>{
+  document.getElementById('buyFee').textContent=fmt(buyFee(+e.target.value||0));
+});
+document.getElementById('bookBuy').addEventListener('click',()=>{
+  const items=document.getElementById('buyItems').value.trim();
+  const addr=document.getElementById('buyAddr').value.trim();
+  const est=+document.getElementById('buyEst').value||0;
+  if(!items)return toast("Ghi món cần mua nha! 📝");
+  if(!est)return toast("Nhập tiền hàng dự kiến! 💰");
+  if(!addr)return toast("Nhập địa chỉ nhận hàng! 📍");
+  const where=document.getElementById('buyWhere').value.trim();
+  const fee=buyFee(est), dep=est+fee, code=genCode();
+  pendingBuy={code,items,where,addr,est,fee,dep,gps:gps.buy};
+  document.getElementById('bDepAmt').textContent=fmt(dep)+` (hàng ${fmt(est)} + phí ${fmt(fee)})`;
+  document.getElementById('bQrImg').src=qrUrl(dep,code);
+  document.getElementById('bQrMemo').textContent=code;
+  document.getElementById('bQrName').textContent=CONFIG.BANK_NAME;
+  document.getElementById('buyModal').classList.add('show');
+});
+document.getElementById('bCloseBtn').addEventListener('click',()=>document.getElementById('buyModal').classList.remove('show'));
+document.getElementById('buyModal').addEventListener('click',e=>{if(e.target.id==='buyModal')e.target.classList.remove('show');});
+document.getElementById('bPaidBtn').addEventListener('click',()=>{
+  const o=pendingBuy;if(!o)return;
+  const msg=`🛍️ ĐƠN MUA HỘ ${o.code} (Goship123)
+Mua: ${o.items}${o.where?`\nTại: ${o.where}`:""}
+Tiền hàng dự kiến: ${fmt(o.est)} | Phí: ${fmt(o.fee)}
+Đã ứng: ${fmt(o.dep)} (CK: ${o.code}) — thừa hoàn thiếu bù
+📍 Giao: ${o.addr}${o.gps?`\n🗺️ GPS: ${gmaps(o.gps)}`:""}`;
+  notify(msg);
+  sendZalo(msg);
+  addOrder("🛍️ Mua hộ",o.code,o.items+" → "+o.addr,o.est+o.fee,o.dep,"Chờ xác nhận ứng tiền",
+    {from:ZONE_XY["Dương Đông"],to:o.gps?[o.gps.lat,o.gps.lng]:ZONE_XY["Dương Đông"],fromName:"Mua tại: "+(o.where||"chợ Dương Đông"),toName:"Giao: "+o.addr});
+  document.getElementById('buyModal').classList.remove('show');
+  document.getElementById('buyItems').value='';document.getElementById('buyAddr').value='';
+  document.getElementById('buyWhere').value='';document.getElementById('buyEst').value='';
+  toast("Đã copy đơn — dán vào Zalo nha! 💬");
+});
+
+/* ---------- 🔔 THÔNG BÁO TELEGRAM ---------- */
+function notify(msg){
+  if(!CONFIG.TG_BOT_TOKEN||!CONFIG.TG_CHAT_ID)return;
+  fetch(`https://api.telegram.org/bot${CONFIG.TG_BOT_TOKEN}/sendMessage`,{
+    method:"POST",headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({chat_id:CONFIG.TG_CHAT_ID,text:"🔔 ĐƠN MỚI!\n\n"+msg})
+  }).catch(()=>{});
+}
+
+/* ---------- ZALO ---------- */
+function sendZalo(msg){
+  const doOpen=()=>window.open("https://zalo.me/"+CONFIG.ZALO_PHONE,"_blank");
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(msg).then(doOpen).catch(()=>{fallbackCopy(msg);doOpen();});
+  }else{fallbackCopy(msg);doOpen();}
+}
+function fallbackCopy(t){
+  const ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);
+  ta.select();try{document.execCommand('copy');}catch(e){}document.body.removeChild(ta);
+}
+
+/* ---------- 📍 GPS PIN MAP ---------- */
+const PQ_CENTER=[10.2899,103.9840];
+function openMap(target){
+  mapTarget=target;
+  document.getElementById('mapModal').classList.add('show');
+  setTimeout(()=>{
+    if(!pinMap){
+      pinMap=L.map('map').setView(gps[target]?[gps[target].lat,gps[target].lng]:PQ_CENTER,13);
+      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap',maxZoom:19}).addTo(pinMap);
+      pinMarker=L.marker(pinMap.getCenter(),{draggable:true}).addTo(pinMap);
+    }else{
+      pinMap.invalidateSize();
+      const c=gps[target]?[gps[target].lat,gps[target].lng]:PQ_CENTER;
+      pinMap.setView(c,14);pinMarker.setLatLng(c);
+    }
+  },100);
+}
+document.getElementById('foodGps').addEventListener('click',()=>openMap('food'));
+document.getElementById('rideGps').addEventListener('click',()=>openMap('ride'));
+document.getElementById('buyGps').addEventListener('click',()=>openMap('buy'));
+document.getElementById('locateBtn').addEventListener('click',()=>{
+  if(!navigator.geolocation)return toast("Máy này không hỗ trợ GPS 😢");
+  toast("Đang định vị... 🛰️");
+  navigator.geolocation.getCurrentPosition(p=>{
+    const ll=[p.coords.latitude,p.coords.longitude];
+    pinMap.setView(ll,17);pinMarker.setLatLng(ll);
+    toast("Định vị xong — kéo ghim chỉnh lại nếu cần 📍");
+  },()=>toast("Không lấy được GPS — bật định vị & thử lại"),{enableHighAccuracy:true,timeout:10000});
+});
+document.getElementById('mapOk').addEventListener('click',()=>{
+  const p=pinMarker.getLatLng();
+  gps[mapTarget]={lat:p.lat,lng:p.lng};
+  document.getElementById('mapModal').classList.remove('show');
+  const btn=document.getElementById(mapTarget+"Gps");
+  btn.classList.add('ok');btn.textContent="📍 Đã ghim vị trí ✅ (bấm để sửa)";
+  toast("Đã lưu vị trí — sẽ gửi kèm link Google Maps 🗺️");
+});
+document.getElementById('mapModal').addEventListener('click',e=>{if(e.target.id==='mapModal')e.target.classList.remove('show');});
+
+/* ---------- 📦 ORDERS + 🗺️ TRACKING ---------- */
+function addOrder(type,code,desc,amount,dep,status,route){
+  orders.unshift({type,code,desc,amount,dep,status,route,at:Date.now(),
+    time:new Date().toLocaleTimeString('vi-VN',{hour:'2-digit',minute:'2-digit'})});
+  renderOrders();
+}
+function renderOrders(){
+  const el=document.getElementById('orderList');
+  if(!orders.length){el.innerHTML='<div class="empty"><span class="big">🐚</span>Chưa có đơn nào.<br>Đặt món đầu tiên đi nè!</div>';return;}
+  el.innerHTML=orders.map((o,i)=>`<div class="order"><span class="code">${o.code}</span> · ${o.type} · ${o.time}<br>${o.desc}<br>
+    <span class="st">● ${o.status}</span> — <b>${fmt(o.amount)}</b>${o.dep?` · <span class="dep">Đã ứng ${fmt(o.dep)}</span>`:""}<br>
+    <button class="trackbtn" data-t="${i}">🗺️ Xem hành trình giao trên bản đồ</button></div>`).join('');
+}
+document.getElementById('orderList').addEventListener('click',e=>{
+  const b=e.target.closest('[data-t]');if(!b)return;
+  openTrack(+b.dataset.t);
+});
+function openTrack(i){
+  const o=orders[i];if(!o||!o.route)return;
+  document.getElementById('tTitle').textContent=`Hành trình đơn ${o.code} 🗺️`;
+  document.getElementById('trackModal').classList.add('show');
+  const dKm=Math.max(1,havKm(o.route.from,o.route.to));
+  const etaMin=Math.round(dKm/25*60)+10; /* 25km/h + 10' chuẩn bị */
+  const t0=new Date(o.at);
+  const tEta=new Date(o.at+etaMin*60000);
+  const hhmm=d=>d.toLocaleTimeString('vi-VN',{hour:'2-digit',minute:'2-digit'});
+  document.getElementById('tSteps').innerHTML=`
+    <div class="tstep done"><span class="ic2">✓</span><div><div class="tt">Đã nhận đơn ${o.code}</div><div class="ts">${hhmm(t0)} · ${o.type}</div></div></div>
+    <div class="tstep now"><span class="ic2">🧑‍🍳</span><div><div class="tt">${o.type.includes("Xe ôm")?"Tài xế đang đến điểm đón":"Đang chuẩn bị / lấy hàng"}</div><div class="ts">${o.route.fromName}</div></div></div>
+    <div class="tstep"><span class="ic2">🛵</span><div><div class="tt">Đang giao — ~${dKm.toFixed(1)}km</div><div class="ts">dự kiến ${etaMin} phút</div></div></div>
+    <div class="tstep"><span class="ic2">🎉</span><div><div class="tt">Giao thành công (dự kiến)</div><div class="ts">khoảng ${hhmm(tEta)} · ${o.route.toName}</div></div></div>`;
+  setTimeout(()=>{
+    if(!trackMap){
+      trackMap=L.map('tmap');
+      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap',maxZoom:19}).addTo(trackMap);
+    }else{trackMap.invalidateSize();}
+    trackLayers.forEach(l=>trackMap.removeLayer(l));trackLayers=[];
+    if(trackAnim)cancelAnimationFrame(trackAnim);
+    const A=o.route.from,B=o.route.to;
+    const mA=L.marker(A).addTo(trackMap).bindPopup(o.route.fromName);
+    const mB=L.marker(B).addTo(trackMap).bindPopup(o.route.toName);
+    const line=L.polyline([A,B],{color:'#E63329',weight:4,dashArray:'8 8'}).addTo(trackMap);
+    const bikeIcon=L.divIcon({html:'<div style="font-size:24px;filter:drop-shadow(0 2px 2px rgba(0,0,0,.4))">🛵</div>',className:'',iconSize:[24,24],iconAnchor:[12,12]});
+    const bike=L.marker(A,{icon:bikeIcon}).addTo(trackMap).bindPopup("Shipper (mô phỏng dự kiến)");
+    trackLayers=[mA,mB,line,bike];
+    trackMap.fitBounds(line.getBounds(),{padding:[36,36]});
+    /* 🛵 shipper chạy mô phỏng theo tuyến */
+    let p=0;
+    const step=()=>{
+      p+=0.0022;if(p>1)p=0;
+      bike.setLatLng([A[0]+(B[0]-A[0])*p, A[1]+(B[1]-A[1])*p]);
+      trackAnim=requestAnimationFrame(step);
+    };
+    if(!matchMedia('(prefers-reduced-motion: reduce)').matches)step();
+  },120);
+}
+document.getElementById('tClose').addEventListener('click',()=>{
+  document.getElementById('trackModal').classList.remove('show');
+  if(trackAnim)cancelAnimationFrame(trackAnim);
+});
+document.getElementById('trackModal').addEventListener('click',e=>{
+  if(e.target.id==='trackModal'){e.target.classList.remove('show');if(trackAnim)cancelAnimationFrame(trackAnim);}
+});
+
+/* ---------- 🤖 GOBOT ---------- */
+const chatlog=document.getElementById('chatlog');
+const quickies=document.getElementById('quickies');
+
+function botMsg(txt){const d=document.createElement('div');d.className='msg bot';d.textContent=txt;chatlog.appendChild(d);chatlog.scrollTop=chatlog.scrollHeight;}
+function meMsg(txt){const d=document.createElement('div');d.className='msg me';d.textContent=txt;chatlog.appendChild(d);chatlog.scrollTop=chatlog.scrollHeight;}
+function setQuickies(list){
+  quickies.innerHTML="";
+  list.forEach(([label,fn])=>{
+    const b=document.createElement('button');b.className='quick';b.textContent=label;
+    b.addEventListener('click',()=>{meMsg(label);setTimeout(fn,350);});
+    quickies.appendChild(b);
+  });
+}
+const goTab=t=>{document.getElementById('botModal').classList.remove('show');document.querySelector(`nav [data-tab="${t}"]`).click();};
+const DEFAULT_QUICKIES=[
+  ["🍜 Đặt đồ ăn",()=>{botMsg("Ok nè! Mình chuyển bạn qua menu 29+ quán uy tín (rating Google thật). Chọn món bỏ giỏ rồi bấm thanh giỏ hàng để đặt nha 🧺");setTimeout(()=>goTab('food'),900);}],
+  ["🛵 Gọi xe ôm",()=>{botMsg("Chở liền! Chọn khu đón + khu đến là ra giá cố định luôn, khỏi kỳ kèo 🛵");setTimeout(()=>goTab('ride'),900);}],
+  ["🛍️ Mua hộ",()=>{botMsg("Cần mua gì cứ ghi ra, shop đi mua tận nơi. Bạn ứng tiền hàng trước có mã đơn đối chiếu, thừa hoàn thiếu bù nha 🧾");setTimeout(()=>goTab('buy'),900);}],
+  ["💰 Phí ship bao nhiêu?",()=>{botMsg("Bảng phí Goship123:\n• Đồ ăn: ship nội khu 15.000đ (có voucher GIAM5K & FREESHIP)\n• Xe ôm: 13.000đ mở cửa + 5.500đ/km\n• Mua hộ: phí từ 15.000đ theo giá trị hàng\nGiá cố định, không thu thêm 👌");}],
+  ["🔒 Cọc là sao? An toàn không?",()=>{botMsg("Cọc để 2 bên đều yên tâm, chống boom đơn á:\n• Đồ ăn: cọc 30% (tối thiểu 20k), còn lại COD\n• Mua hộ: ứng tiền hàng + phí, có hoá đơn chụp gửi\n• Chuyển khoản QR có MÃ ĐƠN đối chiếu, chủ TK VO QUOC CUONG (MB Bank)\n• Hoàn 100% nếu shop huỷ hoặc không mua được 💯");}],
+  ["📞 Gặp người thật",()=>{botMsg("Gọi hotline 0775 218 017 (7:00–22:00) hoặc nhắn Zalo cùng số nha — shop trả lời nhanh lắm 💬");}],
+];
+function botIntent(t){
+  t=t.toLowerCase();
+  if(/(đối tác|doi tac|hợp tác|hop tac|ghim|quảng cáo|quang cao|đăng ký quán|dang ky quan|tài xế|tai xe)/.test(t))return()=>botMsg("Goship123 đang tuyển đối tác nè 💼\n• Quán & tài xế lên app MIỄN PHÍ\n• Gói GHIM TUẦN 99k: ghim đầu danh sách + badge nổi bật\n• Gói GHIM THÁNG 299k: ghim top + lên banner + GoBot gợi ý quán bạn\nLiên hệ hotline/Zalo 0775 218 017 hoặc t.me/Kodeeboyzz nha!");
+  if(/(hotline|số điện thoại|so dien thoai|sdt|gọi|goi cho)/.test(t))return()=>botMsg("📞 Hotline/Zalo Goship123: 0775 218 017 — hoạt động 7:00–22:00 mỗi ngày. Bấm nút gọi ngay trên đầu trang nha!");
+  if(/(hành trình|hanh trinh|theo dõi|theo doi|đơn của tôi|don cua toi|shipper ở đâu|shipper o dau|tracking)/.test(t))return()=>botMsg("Vào mục Đơn hàng 📦 → bấm 'Xem hành trình giao trên bản đồ' là thấy tuyến đường + thời gian dự kiến trên bản đồ GPS. Muốn biết vị trí shipper chính xác từng phút thì gọi 0775 218 017, shipper chia sẻ vị trí trực tiếp qua Zalo liền!");
+  if(/(voucher|mã giảm|ma giam|khuyến mãi|khuyen mai|freeship)/.test(t))return()=>botMsg("Đang có 2 voucher nè 🎟️\n• GIAM5K: giảm 5k phí ship mọi đơn\n• FREESHIP: freeship đơn đồ ăn từ 150k\nBấm vào thẻ voucher ở trang chủ hoặc trong giỏ hàng để áp dụng nha!");
+  if(/(ship|phí|gia|giá|bao nhiêu|nhiu)/.test(t)&&/(ship|phí|giao)/.test(t))return DEFAULT_QUICKIES[3][1];
+  if(/(cọc|coc|ứng|ung tien|boom|lừa|lua|an toàn|an toan)/.test(t))return DEFAULT_QUICKIES[4][1];
+  if(/(xe ôm|xe om|chở|cho di|đón|don)/.test(t))return DEFAULT_QUICKIES[1][1];
+  if(/(mua hộ|mua ho|mua giùm|mua dum|đi chợ|di cho)/.test(t))return DEFAULT_QUICKIES[2][1];
+  if(/(ăn|an gi|đói|doi|món|mon|quán|quan|menu|đặt đồ|dat do)/.test(t))return DEFAULT_QUICKIES[0][1];
+  if(/(giờ|gio|mấy h|may h|mở cửa|mo cua)/.test(t))return()=>botMsg(`Goship123 nhận đơn từ ${CONFIG.OPEN_HOUR}:00 sáng đến ${CONFIG.CLOSE_HOUR}:00 tối mỗi ngày. Ngoài giờ cứ nhắn, sáng shop rep liền nha 🌙`);
+  if(/(zalo|liên hệ|lien he)/.test(t))return DEFAULT_QUICKIES[5][1];
+  if(/(thời tiết|thoi tiet|mưa|mua khong)/.test(t))return()=>botMsg("Kéo lên đầu trang có dự báo 3 ngày của Phú Quốc luôn đó ⛅ Mưa thì đơn có thể giao chậm xíu, shop sẽ báo trước nha!");
+  return null;
+}
+function handleChat(txt){
+  const fn=botIntent(txt);
+  if(fn){setTimeout(fn,400);}
+  else{
+    setTimeout(()=>botMsg("Mình note lại cho shop rồi nha! 📝 Shop sẽ rep bạn qua Zalo sớm nhất. Cần gấp gọi 0775 218 017 hoặc bấm nút bên dưới 👇"),400);
+    setQuickies([["💬 Chat Zalo ngay",()=>window.open("https://zalo.me/"+CONFIG.ZALO_PHONE,"_blank")],...DEFAULT_QUICKIES.slice(0,3)]);
+  }
+  if(CONFIG.TG_BOT_TOKEN&&CONFIG.TG_CHAT_ID){
+    fetch(`https://api.telegram.org/bot${CONFIG.TG_BOT_TOKEN}/sendMessage`,{
+      method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({chat_id:CONFIG.TG_CHAT_ID,text:"💬 KHÁCH NHẮN GOBOT:\n"+txt})
+    }).catch(()=>{});
+  }
+}
+document.getElementById('botFab').addEventListener('click',()=>{
+  document.getElementById('botModal').classList.add('show');
+  if(!chatlog.children.length){
+    botMsg("Chào bạn! Mình là GoBot 🤖 — trợ lý của Goship123.\nMình giúp được: đặt đồ ăn, gọi xe ôm, mua hộ, voucher, theo dõi đơn, hợp tác quán... Bạn cần gì nè?");
+    setQuickies(DEFAULT_QUICKIES);
+  }
+});
+document.getElementById('botModal').addEventListener('click',e=>{if(e.target.id==='botModal')e.target.classList.remove('show');});
+function sendChat(){
+  const inp=document.getElementById('chatInput');
+  const t=inp.value.trim();if(!t)return;
+  meMsg(t);inp.value='';handleChat(t);
+}
+document.getElementById('chatSend').addEventListener('click',sendChat);
+document.getElementById('chatInput').addEventListener('keydown',e=>{if(e.key==='Enter')sendChat();});
+
+/* ---------- TOAST ---------- */
+let tt;
+function toast(msg){
+  const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');
+  clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('show'),2400);
+}
+</script>
+</body>
+</html>
