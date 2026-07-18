@@ -22,8 +22,16 @@
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
   "name": "Goship123",
+  "alternateName": ["Goshipping123 Phú Quốc", "Goship123 Phú Quốc"],
   "description": "Dịch vụ đặt đồ ăn, xe ôm, mua hộ tại Phú Quốc",
   "telephone": "+84775218017",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Phú Quốc",
+    "addressRegion": "Kiên Giang",
+    "addressCountry": "VN"
+  },
+  "geo": { "@type": "GeoCoordinates", "latitude": 10.2899, "longitude": 103.984 },
   "areaServed": "Phú Quốc, Kiên Giang, Việt Nam",
   "openingHours": "Mo-Su 07:00-22:00",
   "priceRange": "₫",
@@ -31,6 +39,20 @@
   "sameAs": ["https://kodeeboyzz.com", "https://zalo.me/0775218017"]
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"Cọc / ứng tiền có được hoàn không?","acceptedAnswer":{"@type":"Answer","text":"Hoàn 100% cọc nếu quán hết món, không mua được hàng, hoặc Goship123 huỷ đơn. Hoàn qua chuyển khoản trong tối đa 24h, đối chiếu bằng mã đơn trong nội dung chuyển khoản."}},
+    {"@type":"Question","name":"Phí dịch vụ Goship123 tính sao?","acceptedAnswer":{"@type":"Answer","text":"Đồ ăn: ship nội khu 15.000đ. Xe ôm: 13.000đ mở cửa + 5.500đ/km, giá chốt trước khi đặt. Mua hộ: phí từ 15.000đ theo giá trị hàng. Không thu thêm khoản nào ngoài báo giá."}},
+    {"@type":"Question","name":"Giờ hoạt động và khu vực phục vụ?","acceptedAnswer":{"@type":"Answer","text":"Mỗi ngày 7:00–22:00, phủ toàn đảo Phú Quốc: Dương Đông, Ông Lang, Cửa Cạn, Gành Dầu, Hàm Ninh, Bãi Trường, An Thới."}},
+    {"@type":"Question","name":"Mua hộ được ở những đâu? Có hoá đơn không?","acceptedAnswer":{"@type":"Answer","text":"Mua được ở mọi nơi có trên Google Maps tại Phú Quốc: siêu thị/mart, chợ Dương Đông, nhà thuốc, tiệm bánh, cả quán không có trong menu. Mua ở mart/siêu thị luôn có hoá đơn in rõ ràng, shipper chụp gửi kèm để đối chiếu."}},
+    {"@type":"Question","name":"Theo dõi đơn hàng kiểu gì?","acceptedAnswer":{"@type":"Answer","text":"Vào mục Đơn hàng, bấm Xem hành trình giao trên bản đồ để thấy tuyến đường và thời gian dự kiến. Cần vị trí shipper chính xác: gọi 0775 218 017, shipper chia sẻ vị trí trực tiếp qua Zalo."}}
+  ]
+}
+</script>
+<link rel="manifest" href="manifest.json">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
@@ -43,7 +65,7 @@
   --card:#FFFDF6; --radius:18px;
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{height:100%}
+html{height:100%}
 body{
   font-family:'Be Vietnam Pro',sans-serif;color:var(--ink);
   max-width:480px;margin:0 auto;min-height:100dvh;display:flex;flex-direction:column;
@@ -53,6 +75,8 @@ body{
   background-size:420% 420%;
   animation:bgShift 24s ease-in-out infinite;
 }
+/* chống flexbox bóp dẹp header/banner/voucher (lỗi che giao diện cũ) */
+body>*{flex-shrink:0}
 @keyframes bgShift{0%,100%{background-position:0% 40%}50%{background-position:100% 60%}}
 h1,h2,h3{font-family:'Be Vietnam Pro',sans-serif}
 
@@ -669,6 +693,16 @@ nav button.on{color:var(--red)}
       <text class="zlb" x="114" y="316">An Thới</text>
       <!-- 🌅 Sunset Town -->
       <text class="lmk" x="82" y="308" font-size="9" style="animation-delay:1.1s">🌅</text>
+      <!-- 🛫 Sân bay quốc tế Phú Quốc (Dương Tơ) -->
+      <text class="lmk" x="88" y="222" font-size="11" style="animation-delay:.4s">🛫</text>
+      <text class="zlb" x="100" y="226" font-size="8">Sân bay</text>
+      <!-- ✈️ máy bay lượn quanh đảo — to/nhỏ theo độ xa gần (3D) -->
+      <text font-size="13" style="filter:drop-shadow(2px 4px 2px rgba(0,0,0,.3))">✈️
+        <animateMotion dur="17s" repeatCount="indefinite" rotate="auto"
+          path="M95,215 C35,185 8,120 35,55 C70,5 150,20 172,85 C188,150 155,205 95,215 Z"/>
+        <animate attributeName="font-size" values="11;17;13;9;11" dur="17s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;1;.85;1;1" dur="17s" repeatCount="indefinite"/>
+      </text>
       <!-- 🚠 cáp treo Hòn Thơm nối An Thới ra đảo -->
       <line class="cable" x1="104" y1="322" x2="113" y2="352"/>
       <text class="lmk" x="112" y="336" font-size="9" style="animation-delay:.2s">🚠</text>
@@ -683,7 +717,7 @@ nav button.on{color:var(--red)}
       <div><span class="lg lg1"></span><span>Khu đang phục vụ</span></div>
       <div><span class="lg lg2"></span><span>Trung tâm Dương Đông</span></div>
       <div class="mnote">🛵 Shipper phủ khắp đảo — bấm chấm đỏ để chọn điểm đón xe ôm liền!</div>
-      <div class="mnote" style="background:var(--yellowsoft);color:#7A5A12">📍 Điểm nổi tiếng: ⛰️ Núi Chúa · 🎡 Grand World · 🦁 Safari · 🗿 Dinh Cậu · 🌙 Chợ đêm · 💧 Suối Tranh · 🏖️ Bãi Sao · 🌅 Sunset Town · 🚠 Cáp treo Hòn Thơm</div>
+      <div class="mnote" style="background:var(--yellowsoft);color:#7A5A12">📍 Điểm nổi tiếng: ⛰️ Núi Chúa · 🎡 Grand World · 🦁 Safari · 🗿 Dinh Cậu · 🌙 Chợ đêm · 💧 Suối Tranh · 🏖️ Bãi Sao · 🌅 Sunset Town · 🚠 Cáp treo Hòn Thơm · 🛫 Sân bay Phú Quốc</div>
     </div>
   </div>
 </div>
@@ -731,7 +765,7 @@ nav button.on{color:var(--red)}
   <!-- ================= BUY ================= -->
   <section class="panel" id="buy">
     <div class="sec-title"><span class="tridots"><i></i><i></i><i></i></span> Mua hộ 🛍️</div>
-    <div class="hint" id="hintBuy">Để tránh boom đơn, bạn <b>ứng tiền hàng qua chuyển khoản</b>, có mã đơn đối chiếu, hoá đơn chụp gửi kèm — thừa hoàn thiếu bù khi giao.</div>
+    <div class="hint" id="hintBuy">Mua được ở <b>MỌI NƠI có trên Google Maps</b>: siêu thị/mart (K+Mart, WinMart, Kingkong...), chợ, nhà thuốc, quán không có trong menu... <b>Mua ở mart/siêu thị có HOÁ ĐƠN in rõ ràng chụp gửi kèm</b>. Để tránh boom đơn, bạn <b>ứng tiền hàng qua chuyển khoản</b> có mã đơn đối chiếu — thừa hoàn thiếu bù khi giao.</div>
     <label>Cần mua gì?</label>
     <textarea id="buyItems" rows="3" placeholder="VD: 1kg ghẹ Hàm Ninh, 2 chai nước mắm 40N, thuốc hạ sốt..."></textarea>
     <label>Mua ở đâu? (nếu biết)</label>
@@ -772,6 +806,10 @@ nav button.on{color:var(--red)}
     <details>
       <summary>Sao phải ứng tiền trước? Có an toàn không?</summary>
       Ứng cọc để chống boom đơn — shipper bỏ tiền túi mua hàng nên cần sự cam kết từ 2 phía. An toàn vì: QR chuyển thẳng tài khoản chính chủ <b>VO QUOC CUONG (MB Bank)</b>, mỗi đơn có mã đối chiếu riêng, hoá đơn mua hàng chụp gửi kèm, thừa hoàn thiếu bù công khai.
+    </details>
+    <details>
+      <summary>Mua hộ được ở những đâu? Có hoá đơn không?</summary>
+      Mua được ở <b>mọi nơi có trên Google Maps</b> tại Phú Quốc: siêu thị/mart (K+Mart, WinMart, Kingkong Mart...), chợ Dương Đông, nhà thuốc, tiệm bánh, cả quán không có trong menu app. Mua ở mart/siêu thị luôn có <b>hoá đơn in rõ ràng</b> — shipper chụp gửi kèm để bạn đối chiếu từng món, thừa hoàn thiếu bù minh bạch.
     </details>
     <details>
       <summary>Theo dõi đơn kiểu gì?</summary>
@@ -981,8 +1019,14 @@ const CONFIG = {
   TG_BOT_TOKEN : "",
   TG_CHAT_ID   : "",
   GA_ID        : "",   /* 📊 Google Analytics: tạo tại analytics.google.com, điền mã G-XXXXXXX để đếm khách truy cập */
+  DRIVER_CUT   : 0.85, /* 💰 Tỉ lệ TÀI XẾ nhận trên phí ship/cuốc (0.85 = 85%). Phần còn lại là của mày — chỉ hiện trong Telegram của mày, không hiện với khách */
 };
 /* ═══════════════════════════════════════ */
+
+/* 📱 PWA: đăng ký service worker để cài như app (chỉ chạy khi đã deploy http/https) */
+if('serviceWorker' in navigator && location.protocol.startsWith('http')){
+  window.addEventListener('load',()=>{navigator.serviceWorker.register('sw.js').catch(()=>{});});
+}
 
 /* 📊 nạp Google Analytics nếu có mã */
 if(CONFIG.GA_ID){
@@ -1056,8 +1100,8 @@ const PH={
 };
 const RICH={
  hintBuy:[
-  'Để tránh boom đơn, bạn <b>ứng tiền hàng qua chuyển khoản</b>, có mã đơn đối chiếu, hoá đơn chụp gửi kèm — thừa hoàn thiếu bù khi giao.',
-  'To prevent fake orders, you <b>prepay the goods amount by bank transfer</b> with an order code for reconciliation. Receipts are photographed — overpay refunded, shortfall settled on delivery.'
+  'Mua được ở <b>MỌI NƠI có trên Google Maps</b>: siêu thị/mart (K+Mart, WinMart, Kingkong...), chợ, nhà thuốc, quán không có trong menu... <b>Mua ở mart/siêu thị có HOÁ ĐƠN in rõ ràng chụp gửi kèm</b>. Để tránh boom đơn, bạn <b>ứng tiền hàng qua chuyển khoản</b> có mã đơn đối chiếu — thừa hoàn thiếu bù khi giao.',
+  'We buy from <b>ANY place on Google Maps</b>: supermarkets (K+Mart, WinMart, Kingkong...), markets, pharmacies, restaurants not on our menu... <b>Supermarket purchases come with a printed receipt photographed for you</b>. To prevent fake orders, you <b>prepay by bank transfer</b> with an order code — overpay refunded, shortfall settled on delivery.'
  ],
 };
 function applyLang(){
@@ -1155,6 +1199,9 @@ function tick(){
 }
 tick();setInterval(tick,1000);
 
+/* nạp lịch sử đơn đã lưu trên máy khách */
+setTimeout(()=>{try{loadOrders();if(orders.length)renderOrders();}catch(e){}},0);
+
 /* ---------- 🌦️ THỜI TIẾT 3 NGÀY (Open-Meteo) ---------- */
 const WMO=(c)=>{
   if(c===0)return["☀️","Nắng đẹp"];
@@ -1214,8 +1261,24 @@ const SHOPS=[
  {name:"Soul Match Matcha & Coffee",area:"Dương Đông",cat:"Cà phê/Đồ uống",rate:5.0,rc:"341 đánh giá",gm:"https://maps.google.com/?q=Soul+Match+117+Lý+Thường+Kiệt+Phú+Quốc",dishes:[["Matcha đá",45000],["Latte",40000],["Trà vải",40000]]},
  {name:"Chè Nhà Jun",area:"Dương Đông",cat:"Chè/Ăn vặt",rate:4.8,rc:"279 đánh giá",gm:"https://maps.google.com/?q=Chè+Nhà+Jun+9+Lý+Thường+Kiệt+Phú+Quốc",dishes:[["Chè bánh lọt",25000],["Chè pandan",25000],["Chè thập cẩm",30000]]},
  {name:"Chè Nhà Cổ",area:"Dương Đông",cat:"Chè/Ăn vặt",rate:4.1,rc:"163 đánh giá",gm:"https://maps.google.com/?q=Chè+Nhà+Cổ+14+Bạch+Đằng+Phú+Quốc",dishes:[["Chè Thái",30000],["Chè thập cẩm",25000]]},
+ {name:"SEOK2 POCHA — Quán Hàn",area:"Cửa Lấp",cat:"Món Hàn/Nhật",rate:4.9,rc:"1k đánh giá",gm:"https://maps.google.com/?q=SEOK2+POCHA+Trần+Hưng+Đạo+Cửa+Lấp+Phú+Quốc",dishes:[["Gà rán Hàn Quốc",160000],["Mì lạnh",120000],["Mực xào cay",150000]]},
+ {name:"JMT Korea (Grand World)",area:"Bãi Dài",cat:"Món Hàn/Nhật",rate:4.7,rc:"2k đánh giá",gm:"https://maps.google.com/?q=JMT+Korea+Restaurant+Grand+World+Phú+Quốc",dishes:[["Tokbokki",120000],["Gà rán",180000],["Mì lạnh Hàn",130000]]},
+ {name:"Umai Izakaya (Sunset Town)",area:"An Thới",cat:"Món Hàn/Nhật",rate:4.6,rc:"73 đánh giá",gm:"https://maps.google.com/?q=Umai+Izakaya+Bar+Sunset+Town+Phú+Quốc",dishes:[["Sushi set",250000],["Sashimi",300000],["Súp miso",60000]]},
+ {name:"Quốc Mạnh BBQ (chợ đêm)",area:"Chợ đêm Sonasea",cat:"Quán nhậu/BBQ",rate:4.8,rc:"152 đánh giá",gm:"https://maps.google.com/?q=Quốc+Mạnh+BBQ+chợ+đêm+Sonasea+Phú+Quốc",dishes:[["Heo nướng",120000],["Mực nướng",120000],["Cơm chiên",80000]]},
+ {name:"Cô Loan King BBQ",area:"Chợ đêm Sonasea",cat:"Quán nhậu/BBQ",rate:4.8,rc:"83 đánh giá",gm:"https://maps.google.com/?q=Quán+Cô+Loan+King+BBQ+Đường+Bào+Phú+Quốc",dishes:[["Cơm chiên hải sản",100000],["Tôm sốt bơ tỏi",180000],["Sò điệp nướng",90000]]},
+ {name:"Foodcourt 15th (lẩu & BBQ)",area:"Chợ đêm Sonasea",cat:"Quán nhậu/BBQ",rate:4.9,rc:"93 đánh giá",gm:"https://maps.google.com/?q=Foodcourt+15th+Đường+Bào+Phú+Quốc",dishes:[["Gỏi cá trích",90000],["Mực nướng",120000],["Lẩu hải sản",300000]]},
+ {name:"Buffet Phố Nướng Chảo 1996",area:"Dương Đông",cat:"Quán nhậu/BBQ",rate:4.6,rc:"80 đánh giá",gm:"https://maps.google.com/?q=Buffet+Phố+Nướng+Chảo+1996+9+Hùng+Vương+Phú+Quốc",dishes:[["Buffet nướng",159000],["Buffet nướng + lẩu",175000]]},
+ {name:"Quán Nhậu Mộc Trinh (24h)",area:"Bãi Trường",cat:"Quán nhậu/BBQ",rate:4.6,rc:"146 đánh giá · mở 24h",gm:"https://maps.google.com/?q=Quán+nhậu+Mộc+Trinh+Đường+Bào+Phú+Quốc",dishes:[["Lẩu cá thập cẩm",250000],["Hàu nướng mỡ hành",80000],["Lươn xào lăn",150000]]},
+ {name:"Hoàng Hôn Quán (view biển)",area:"An Thới",cat:"Quán nhậu/BBQ",rate:4.0,rc:"115 đánh giá",gm:"https://maps.google.com/?q=Quán+Nhậu+Bình+Dân+Hoàng+Hôn+An+Thới+Phú+Quốc",dishes:[["Hải sản nướng (phần)",150000],["Lẩu cá",250000],["Bia lon",20000]]},
+ {name:"Nhà Hàng Ngon (24h)",area:"Dương Đông",cat:"Cơm/Lẩu",rate:4.7,rc:"59 đánh giá · mở 24h",gm:"https://maps.google.com/?q=Nhà+hàng+Ngon+127f+Trần+Hưng+Đạo+Phú+Quốc",dishes:[["Cơm phần gia đình",120000],["Lẩu hải sản",300000],["Rau xào",45000]]},
+ {name:"Cua 350 — Bánh Canh Cua",area:"Dương Đông",cat:"Bún/Món nước",rate:4.9,rc:"120 đánh giá",gm:"https://maps.google.com/?q=Cua+350+Crab+Noodle+Soup+38+30+Tháng+4+Phú+Quốc",dishes:[["Bánh canh cua",65000],["Nước ép trái cây",30000]]},
+ {name:"Bánh Canh Chả Cá Chợ Đêm",area:"Dương Đông",cat:"Bún/Món nước",rate:4.9,rc:"75 đánh giá",gm:"https://maps.google.com/?q=Bánh+canh+chả+cá+7+Nguyễn+Đình+Chiểu+Phú+Quốc",dishes:[["Bánh canh chả cá",40000],["Bánh canh tôm mực",55000]]},
+ {name:"Bánh Canh Đèn Dầu",area:"Dương Đông",cat:"Bún/Món nước",rate:4.0,rc:"160 đánh giá",gm:"https://maps.google.com/?q=Bánh+Canh+Đèn+Dầu+30+Tháng+4+Phú+Quốc",dishes:[["Bánh canh bột lọc",30000],["Bánh canh tôm mực",50000]]},
+ {name:"PP Bakery — Bánh Kem",area:"Dương Đông",cat:"Bánh ngọt",rate:4.9,rc:"36 đánh giá",gm:"https://maps.google.com/?q=Tiệm+Bánh+Kem+PP+Bakery+50+Trần+Phú+Phú+Quốc",dishes:[["Bánh kem đặt (nhỏ)",250000],["Bánh ngọt lẻ",35000]]},
+ {name:"TUNG Cake & Tea",area:"Dương Đông",cat:"Bánh ngọt",rate:4.5,rc:"79 đánh giá",gm:"https://maps.google.com/?q=TUNG+Cake+and+Tea+120+Nguyễn+Trung+Trực+Phú+Quốc",dishes:[["Bánh kem sinh nhật",200000],["Trà sữa",35000]]},
+ {name:"Nị Bakery",area:"Dương Đông",cat:"Bánh ngọt",rate:5.0,rc:"30 đánh giá",gm:"https://maps.google.com/?q=Nị+Bakery+254C+Nguyễn+Trung+Trực+Phú+Quốc",dishes:[["Bánh kem mini",150000],["Bánh su kem",25000]]},
 ];
-const CATS=["Tất cả","Hải sản","Bún/Món nước","Cơm/Lẩu","Bánh mì","Pizza/Âu","Chay","Cà phê/Đồ uống","Chè/Ăn vặt"];
+const CATS=["Tất cả","Hải sản","Bún/Món nước","Cơm/Lẩu","Bánh mì","Quán nhậu/BBQ","Món Hàn/Nhật","Pizza/Âu","Chay","Cà phê/Đồ uống","Bánh ngọt","Chè/Ăn vặt"];
 let curCat="Tất cả";
 
 const ZONES=["Dương Đông","Bãi Trường","An Thới","Hàm Ninh","Cửa Cạn","Gành Dầu","Ông Lang"];
@@ -1382,7 +1445,7 @@ ${o.items.map(i=>`• ${i.qty}x ${i.name} — ${i.shop}`).join("\n")}
 Ship: ${fmt(o.ship)}${o.voucher?` (voucher ${o.voucher})`:""}
 Tổng (tham khảo): ${fmt(o.total)} | Đã cọc: ${fmt(o.dep)} (CK: ${o.code})
 📍 Giao: ${o.addr}${o.gps?`\n🗺️ GPS: ${gmaps(o.gps)}`:""}`;
-  notify(msg);
+  notify(msg+ownerLine(o.ship));
   sendZalo(msg);
   const fromXY=ZONE_XY[o.items[0].area]||ZONE_XY["Dương Đông"];
   const toXY=o.gps?[o.gps.lat,o.gps.lng]:ZONE_XY["Dương Đông"];
@@ -1424,7 +1487,7 @@ document.getElementById('bookRide').addEventListener('click',()=>{
 Đón: ${zFrom}${gps.ride?`\n🗺️ GPS đón: ${gmaps(gps.ride)}`:""}
 Đến: ${zTo}
 Giá: ${fmt(f)} (trả tài xế)${note?`\nGhi chú: ${note}`:""}`;
-  notify(msg);
+  notify(msg+ownerLine(f));
   sendZalo(msg);
   addOrder("🛵 Xe ôm",code,`${zFrom} → ${zTo}${note?" · "+note:""}`,f,0,"Chờ tài xế nhận",
     {from:gps.ride?[gps.ride.lat,gps.ride.lng]:ZONE_XY[zFrom],to:ZONE_XY[zTo],fromName:"Đón: "+zFrom,toName:"Đến: "+zTo});
@@ -1466,7 +1529,7 @@ Mua: ${o.items}${o.where?`\nTại: ${o.where}`:""}
 Tiền hàng dự kiến: ${fmt(o.est)} | Phí: ${fmt(o.fee)}
 Đã ứng: ${fmt(o.dep)} (CK: ${o.code}) — thừa hoàn thiếu bù
 📍 Giao: ${o.addr}${o.gps?`\n🗺️ GPS: ${gmaps(o.gps)}`:""}`;
-  notify(msg);
+  notify(msg+ownerLine(o.fee));
   sendZalo(msg);
   addOrder("🛍️ Mua hộ",o.code,o.items+" → "+o.addr,o.est+o.fee,o.dep,"Chờ xác nhận ứng tiền",
     {from:ZONE_XY["Dương Đông"],to:o.gps?[o.gps.lat,o.gps.lng]:ZONE_XY["Dương Đông"],fromName:"Mua tại: "+(o.where||"chợ Dương Đông"),toName:"Giao: "+o.addr});
@@ -1477,6 +1540,11 @@ Tiền hàng dự kiến: ${fmt(o.est)} | Phí: ${fmt(o.fee)}
 });
 
 /* ---------- 🔔 THÔNG BÁO TELEGRAM ---------- */
+/* dòng lãi CHỈ gửi vào Telegram của chủ app — tin nhắn Zalo của khách không có */
+function ownerLine(fee){
+  const drv=Math.round(fee*CONFIG.DRIVER_CUT), me=fee-drv;
+  return `\n────────────\n💰 (Kín — chỉ mày thấy) Phần của mày: ${fmt(me)} · Trả tài xế: ${fmt(drv)}`;
+}
 function notify(msg){
   if(!CONFIG.TG_BOT_TOKEN||!CONFIG.TG_CHAT_ID)return;
   fetch(`https://api.telegram.org/bot${CONFIG.TG_BOT_TOKEN}/sendMessage`,{
@@ -1537,9 +1605,14 @@ document.getElementById('mapOk').addEventListener('click',()=>{
 document.getElementById('mapModal').addEventListener('click',e=>{if(e.target.id==='mapModal')e.target.classList.remove('show');});
 
 /* ---------- 📦 ORDERS + 🗺️ TRACKING ---------- */
+/* Lịch sử đơn lưu ngay trên máy khách — mở lại web vẫn thấy, không cần đăng nhập.
+   Bọc try/catch: môi trường nào chặn lưu trữ thì app vẫn chạy bình thường. */
+function saveOrders(){try{localStorage.setItem('gs123_orders',JSON.stringify(orders.slice(0,30)));}catch(e){}}
+function loadOrders(){try{const s=localStorage.getItem('gs123_orders');if(s)orders=JSON.parse(s)||[];}catch(e){}}
 function addOrder(type,code,desc,amount,dep,status,route){
   orders.unshift({type,code,desc,amount,dep,status,route,at:Date.now(),
     time:new Date().toLocaleTimeString('vi-VN',{hour:'2-digit',minute:'2-digit'})});
+  saveOrders();
   renderOrders();
 }
 function renderOrders(){
