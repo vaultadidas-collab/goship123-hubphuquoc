@@ -849,7 +849,7 @@ nav button.on{color:var(--red)}
   <!-- ================= BUY ================= -->
   <section class="panel" id="buy">
     <div class="sec-title"><span class="tridots"><i></i><i></i><i></i></span> Mua hộ 🛍️</div>
-    <div class="hint" id="hintBuy">Mua được ở <b>MỌI NƠI có trên Google Maps</b>: siêu thị/mart (K+Mart, WinMart, Kingkong...), chợ, nhà thuốc, quán không có trong menu... <b>Mua ở mart/siêu thị có HOÁ ĐƠN in rõ ràng chụp gửi kèm</b>. Để tránh boom đơn, bạn <b>ứng tiền hàng qua chuyển khoản</b> có mã đơn đối chiếu — thừa hoàn thiếu bù khi giao.</div>
+    <div class="hint" id="hintBuy">Mua được ở <b>MỌI NƠI có trên Google Maps</b>: siêu thị/mart (K+Mart, WinMart, Kingkong...), chợ, nhà thuốc, quán không có trong menu (mì cay, pizza, gà rán...), đặc sản làm quà (nước mắm, tiêu, rượu sim)... <b>Mua ở mart/siêu thị có HOÁ ĐƠN in rõ ràng chụp gửi kèm</b>. Để tránh boom đơn, bạn <b>ứng tiền hàng qua chuyển khoản</b> có mã đơn đối chiếu — thừa hoàn thiếu bù khi giao.</div>
     <label>Cần mua gì?</label>
     <textarea id="buyItems" rows="3" placeholder="VD: 1kg ghẹ Hàm Ninh, 2 chai nước mắm 40N, thuốc hạ sốt..."></textarea>
     <label>Mua ở đâu? (nếu biết)</label>
@@ -889,7 +889,7 @@ nav button.on{color:var(--red)}
     </details>
     <details>
       <summary>Giờ hoạt động & khu vực phục vụ?</summary>
-      Mỗi ngày 7:00–22:00, phủ toàn đảo: Dương Đông, Ông Lang, Cửa Cạn, Gành Dầu, Hàm Ninh, Bãi Trường, An Thới. Ngoài giờ vẫn nhận tin nhắn, xử lý ngay sáng hôm sau.
+      Mỗi ngày 7:00–22:00, phủ toàn đảo: Dương Đông, Ông Lang, Cửa Cạn, Gành Dầu, Hàm Ninh, Bãi Trường, An Thới. Ngoài giờ vẫn nhận tin nhắn, xử lý ngay sáng hôm sau — hoặc chat <b>Bot Zalo tự động 24/7</b> (quét QR ở cuối trang) để xem bảng giá và để lại đơn bất kỳ lúc nào.
     </details>
     <details>
       <summary>Sao phải ứng tiền trước? Có an toàn không?</summary>
@@ -949,8 +949,8 @@ nav button.on{color:var(--red)}
   </div>
 
   <footer class="foot">
-    <b>Goship123</b> — Đặt đồ ăn · Xe ôm · Ô tô 4-7 chỗ · Thuê xe du lịch · Mua hộ tại Phú Quốc<br>
-    📞 Hotline/Zalo: <a href="tel:0775218017">0775 218 017</a> · ✈️ <a href="https://t.me/Kodeeboyzz" target="_blank" rel="noopener">t.me/Kodeeboyzz</a><br>
+    <b>Goship123</b> — Đặt đồ ăn · Xe ôm · Ô tô 4-7 chỗ · Thuê xe du lịch · Mua hộ tại Phú Quốc · <a href="taixe.html" style="opacity:.8">🛵 Dành cho Tài xế</a><br>
+    📞 Hotline/Zalo: <a href="tel:0775218017">0775 218 017</a> · 🤖 <a href="#" id="qrBotOpen">Bot Zalo tự động 24/7 (quét QR)</a> · ✈️ <a href="https://t.me/Kodeeboyzz" target="_blank" rel="noopener">t.me/Kodeeboyzz</a><br>
     ⏰ Hoạt động 7:00–22:00 mỗi ngày · 📍 Phú Quốc, Kiên Giang<br>
     📜 <a href="#faqSec">Chính sách hoàn tiền & quy định sử dụng</a> · 🤝 <a href="https://kodeeboyzz.com" target="_blank" rel="noopener">Kodeeboyzz.com</a>
     <div class="cop">© 2026 Goship123 · Một sản phẩm của <b>Kodeeboyzz</b>. Giá món ăn là giá tham khảo, báo giá chính xác khi xác nhận đơn. Rating quán theo Google Maps.</div>
@@ -964,6 +964,16 @@ nav button.on{color:var(--red)}
 </div>
 
 <button class="botfab" id="botFab" aria-label="Chat với GoBot hỗ trợ">🤖</button>
+
+<!-- 🤖 modal QR Bot Zalo -->
+<div class="modal" id="qrBotModal">
+  <div class="sheet" style="text-align:center">
+    <h3>🤖 Bot goship123 trên Zalo</h3>
+    <p style="font-size:12.5px;color:var(--mut);margin:6px 0 10px">Mở Zalo → bấm nút quét QR → quét mã dưới đây để chat với bot.<br>Bot trả lời tự động 24/7: bảng giá, đặt đơn, ô tô — sân bay, thuê xe...</p>
+    <img src="bot-qr.png" alt="QR Bot Zalo Goship123" style="width:min(78vw,300px);border-radius:16px;border:1.5px solid var(--line)">
+    <button class="cta" id="qrBotClose" style="margin-top:14px">← Đóng</button>
+  </div>
+</div>
 
 <!-- checkout modal (food) -->
 <div class="modal" id="cartModal">
@@ -1194,7 +1204,7 @@ const PH={
 };
 const RICH={
  hintBuy:[
-  'Mua được ở <b>MỌI NƠI có trên Google Maps</b>: siêu thị/mart (K+Mart, WinMart, Kingkong...), chợ, nhà thuốc, quán không có trong menu... <b>Mua ở mart/siêu thị có HOÁ ĐƠN in rõ ràng chụp gửi kèm</b>. Để tránh boom đơn, bạn <b>ứng tiền hàng qua chuyển khoản</b> có mã đơn đối chiếu — thừa hoàn thiếu bù khi giao.',
+  'Mua được ở <b>MỌI NƠI có trên Google Maps</b>: siêu thị/mart (K+Mart, WinMart, Kingkong...), chợ, nhà thuốc, quán không có trong menu (mì cay, pizza, gà rán...), đặc sản làm quà (nước mắm, tiêu, rượu sim)... <b>Mua ở mart/siêu thị có HOÁ ĐƠN in rõ ràng chụp gửi kèm</b>. Để tránh boom đơn, bạn <b>ứng tiền hàng qua chuyển khoản</b> có mã đơn đối chiếu — thừa hoàn thiếu bù khi giao.',
   'We buy from <b>ANY place on Google Maps</b>: supermarkets (K+Mart, WinMart, Kingkong...), markets, pharmacies, restaurants not on our menu... <b>Supermarket purchases come with a printed receipt photographed for you</b>. To prevent fake orders, you <b>prepay by bank transfer</b> with an order code — overpay refunded, shortfall settled on delivery.'
  ],
 };
@@ -1326,6 +1336,12 @@ fetch("https://api.open-meteo.com/v1/forecast?latitude=10.2899&longitude=103.984
 
 /* ---------- 🍜 QUÁN THẬT TỪ GOOGLE MAPS (thêm pin:true để ghim quán trả phí lên top) ---------- */
 const SHOPS=[
+ {name:"Mì Cay Seoul (Dương Đông)",area:"Dương Đông",cat:"Món Hàn/Nhật",rate:4.4,rc:"Google Maps",gm:"https://maps.google.com/?q=Mì+Cay+Seoul+Dương+Đông+Phú+Quốc",dishes:[["Mì cay hải sản (cấp 0-7)",65000],["Mì cay bò Mỹ",69000],["Mì cay kim chi",60000],["Tokbokki phô mai",55000]]},
+ {name:"Sasin Mì Cay 7 Cấp Độ",area:"Dương Đông",cat:"Món Hàn/Nhật",rate:4.3,rc:"Google Maps",gm:"https://maps.google.com/?q=Mì+cay+Sasin+Phú+Quốc",dishes:[["Mì cay hải sản",59000],["Mì cay bò",65000],["Cơm trộn Hàn Quốc",55000],["Gà rán sốt cay",75000]]},
+ {name:"Winner's Pizza & Pasta (An Thới)",area:"An Thới",cat:"Pizza/Âu",rate:4.6,rc:"Google Maps",gm:"https://maps.google.com/?q=Winner+Pizza+An+Thới+Phú+Quốc",dishes:[["Pizza hải sản",155000],["Pizza xúc xích phô mai",135000],["Mì Ý sốt bò bằm",115000]]},
+ {name:"Buddy Ice Cream & Info Cafe",area:"Dương Đông",cat:"Chè/Ăn vặt",rate:4.6,rc:"2k đánh giá",gm:"https://maps.google.com/?q=Buddy+Ice+Cream+Phú+Quốc",dishes:[["Kem New Zealand 2 viên",65000],["Kem dừa",55000],["Sinh tố trái cây",50000]]},
+ {name:"Nước Mắm Khải Hoàn (nhà thùng)",area:"Dương Đông",cat:"Đặc sản/Quà",rate:4.5,rc:"3k đánh giá",gm:"https://maps.google.com/?q=Nước+mắm+Khải+Hoàn+Phú+Quốc",dishes:[["Nước mắm 40N 500ml",120000],["Nước mắm 43N 500ml",160000],["Combo quà tặng 2 chai",250000]]},
+ {name:"Đặc Sản Chợ Dương Đông (mua hộ)",area:"Dương Đông",cat:"Đặc sản/Quà",rate:4.4,rc:"chợ trung tâm",gm:"https://maps.google.com/?q=Chợ+Dương+Đông+Phú+Quốc",dishes:[["Tiêu Phú Quốc 500g",90000],["Rượu sim 500ml",130000],["Khô cá thiều 500g",180000],["Ghẹ Hàm Ninh (theo kg — báo giá)",1000]]},
  {name:"Bún Quậy Kiến Xây (Bạch Đằng)",area:"Dương Đông",cat:"Bún/Món nước",rate:4.2,rc:"6,3k đánh giá",gm:"https://maps.google.com/?q=Bún+quậy+Kiến+Xây+28+Bạch+Đằng+Phú+Quốc",dishes:[["Bún quậy tôm",45000],["Bún quậy đặc biệt",65000],["Bún quậy mực",50000]]},
  {name:"Bún Quậy Bạch Đằng",area:"Dương Đông",cat:"Bún/Món nước",rate:4.9,rc:"242 đánh giá",gm:"https://maps.google.com/?q=Bún+Quậy+Bạch+Đằng+32A+Phú+Quốc",dishes:[["Bún quậy thường",40000],["Bún quậy đầy đủ",60000],["Nước mía",15000]]},
  {name:"The Home Pizza (Trần Hưng Đạo)",area:"Dương Đông",cat:"Pizza/Âu",rate:4.8,rc:"7,5k đánh giá",gm:"https://maps.google.com/?q=The+Home+Pizza+129+Trần+Hưng+Đạo+Phú+Quốc",dishes:[["Pizza bò Việt Nam",165000],["Pizza pepperoni",155000],["Mì Ý tôm cua",145000],["Salad burrata",120000]]},
@@ -1372,7 +1388,7 @@ const SHOPS=[
  {name:"TUNG Cake & Tea",area:"Dương Đông",cat:"Bánh ngọt",rate:4.5,rc:"79 đánh giá",gm:"https://maps.google.com/?q=TUNG+Cake+and+Tea+120+Nguyễn+Trung+Trực+Phú+Quốc",dishes:[["Bánh kem sinh nhật",200000],["Trà sữa",35000]]},
  {name:"Nị Bakery",area:"Dương Đông",cat:"Bánh ngọt",rate:5.0,rc:"30 đánh giá",gm:"https://maps.google.com/?q=Nị+Bakery+254C+Nguyễn+Trung+Trực+Phú+Quốc",dishes:[["Bánh kem mini",150000],["Bánh su kem",25000]]},
 ];
-const CATS=["Tất cả","Hải sản","Bún/Món nước","Cơm/Lẩu","Bánh mì","Quán nhậu/BBQ","Món Hàn/Nhật","Pizza/Âu","Chay","Cà phê/Đồ uống","Bánh ngọt","Chè/Ăn vặt"];
+const CATS=["Tất cả","Hải sản","Bún/Món nước","Cơm/Lẩu","Bánh mì","Quán nhậu/BBQ","Món Hàn/Nhật","Pizza/Âu","Chay","Cà phê/Đồ uống","Bánh ngọt","Chè/Ăn vặt","Đặc sản/Quà"];
 let curCat="Tất cả";
 
 const ZONES=["Sân bay ✈️","Dương Đông","Bãi Trường","An Thới","Hàm Ninh","Cửa Cạn","Gành Dầu","Ông Lang"];
@@ -1552,7 +1568,7 @@ ${o.items.map(i=>`• ${i.qty}x ${i.name} — ${i.shop}`).join("\n")}
 Ship: ${fmt(o.ship)}${o.voucher?` (voucher ${o.voucher})`:""}
 Tổng (tham khảo): ${fmt(o.total)} | Đã cọc: ${fmt(o.dep)} (CK: ${o.code})
 📍 Giao: ${o.addr}${o.gps?`\n🗺️ GPS: ${gmaps(o.gps)}`:""}`;
-  notify(msg+ownerLine(o.ship));
+  notify(msg+ownerLine(o.ship),{code:o.code,type:"🍜 Đồ ăn",fare:o.ship,cut:CONFIG.DRIVER_CUT,detail:o.items.map(i=>i.qty+"x "+i.name+" ("+i.shop+")").join(", ")+" → GIAO: "+o.addr});
   sendZalo(msg);
   const fromXY=ZONE_XY[o.items[0].area]||ZONE_XY["Dương Đông"];
   const toXY=o.gps?[o.gps.lat,o.gps.lng]:ZONE_XY["Dương Đông"];
@@ -1614,7 +1630,7 @@ document.getElementById('bookRide').addEventListener('click',()=>{
 Đón: ${zFrom}${gps.ride?`\n🗺️ GPS đón: ${gmaps(gps.ride)}`:""}
 Đến: ${zTo}
 Giá: ${fmt(f)} (trả tài xế)${isAirport()?"\n✈️ Đã gồm phụ phí sân bay":""}${note?`\nGhi chú: ${note}`:""}`;
-  notify(msg+ownerLine(f,v.cut));
+  notify(msg+ownerLine(f,v.cut),{code:code,type:v.ic+" "+v.name,fare:f,cut:v.cut,detail:"Đón: "+zFrom+" → Đến: "+zTo+(note?" · "+note:"")});
   sendZalo(msg);
   addOrder(`${v.ic} ${v.name}`,code,`${zFrom} → ${zTo}${note?" · "+note:""}`,f,0,"Chờ tài xế nhận",
     {from:gps.ride?[gps.ride.lat,gps.ride.lng]:ZONE_XY[zFrom],to:ZONE_XY[zTo],fromName:"Đón: "+zFrom,toName:"Đến: "+zTo});
@@ -1644,7 +1660,7 @@ document.getElementById('bookRent').addEventListener('click',()=>{
 Xe: ${VEHICLES[rentVeh].ic} ${VEHICLES[rentVeh].name} — gói ${RENT_LBL[rentPk]}
 Giá trọn gói: ${fmt(p)} (gồm tài xế + xăng)
 Đón: ${when}`;
-  notify(msg+ownerLine(p,0.80));
+  notify(msg+ownerLine(p,0.80),{code:code,type:"🏝️ Thuê xe "+VEHICLES[rentVeh].name,fare:p,cut:0.80,detail:RENT_LBL[rentPk]+" · Đón: "+when});
   sendZalo(msg);
   addOrder("🏝️ Thuê xe",code,`${VEHICLES[rentVeh].name} · ${RENT_LBL[rentPk]} · ${when}`,p,0,"Chờ xác nhận lịch",
     {from:ZONE_XY["Dương Đông"],to:ZONE_XY["An Thới"],fromName:"Bắt đầu: theo lịch hẹn",toName:"Tour quanh đảo"});
@@ -1687,7 +1703,7 @@ Mua: ${o.items}${o.where?`\nTại: ${o.where}`:""}
 Tiền hàng dự kiến: ${fmt(o.est)} | Phí: ${fmt(o.fee)}
 Đã ứng: ${fmt(o.dep)} (CK: ${o.code}) — thừa hoàn thiếu bù
 📍 Giao: ${o.addr}${o.gps?`\n🗺️ GPS: ${gmaps(o.gps)}`:""}`;
-  notify(msg+ownerLine(o.fee));
+  notify(msg+ownerLine(o.fee),{code:o.code,type:"🛍️ Mua hộ",fare:o.fee,cut:CONFIG.DRIVER_CUT,detail:o.items+(o.where?" @ "+o.where:"")+" → GIAO: "+o.addr});
   sendZalo(msg);
   addOrder("🛍️ Mua hộ",o.code,o.items+" → "+o.addr,o.est+o.fee,o.dep,"Chờ xác nhận ứng tiền",
     {from:ZONE_XY["Dương Đông"],to:o.gps?[o.gps.lat,o.gps.lng]:ZONE_XY["Dương Đông"],fromName:"Mua tại: "+(o.where||"chợ Dương Đông"),toName:"Giao: "+o.addr});
@@ -1703,12 +1719,12 @@ function ownerLine(fee,cut){
   const drv=Math.round(fee*(cut??CONFIG.DRIVER_CUT)), me=fee-drv;
   return `\n────────────\n💰 (Kín — chỉ mày thấy) Phần của mày: ${fmt(me)} · Trả tài xế: ${fmt(drv)}`;
 }
-function notify(msg){
-  /* 🤖 bắn đơn về Zalo của chủ shop qua bot Deno */
+function notify(msg,meta){
+  /* 🤖 bắn đơn về Zalo chủ shop + lưu vào hệ TÀI XẾ (meta = mã/giá/cut) */
   if(CONFIG.ZALO_WORKER_URL){
     fetch(CONFIG.ZALO_WORKER_URL+"/order",{
       method:"POST",headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({text:msg})
+      body:JSON.stringify({text:msg,meta:meta||null})
     }).catch(()=>{});
   }
   if(!CONFIG.TG_BOT_TOKEN||!CONFIG.TG_CHAT_ID)return;
@@ -1861,7 +1877,7 @@ const DEFAULT_QUICKIES=[
   ["🚗 Ô tô & sân bay",()=>{botMsg("Goship123 có ô tô máy lạnh nè 🚗\n• 4 chỗ: 35k/2km đầu + 13k/km\n• 7 chỗ: 45k/2km đầu + 16k/km\n• Đưa đón sân bay: +40k phụ phí, giá CHỐT TRƯỚC\n🏝️ Thuê xe du lịch có tài xế + xăng: 4 chỗ từ 150k/giờ — 900k/ngày, 7 chỗ từ 200k/giờ — 1.2tr/ngày\nQua tab Gọi xe chọn loại xe là ra giá liền!");setTimeout(()=>goTab('ride'),1200);}],
   ["💰 Phí ship bao nhiêu?",()=>{botMsg("Bảng phí Goship123:\n• Đồ ăn: ship nội khu 15.000đ (có voucher GIAM5K & FREESHIP)\n• Xe ôm: 13.000đ mở cửa + 5.500đ/km\n• Ô tô 4 chỗ: 35k/2km đầu + 13k/km · 7 chỗ: 45k/2km đầu + 16k/km\n• Thuê xe du lịch có tài xế từ 150k/giờ\n• Mua hộ: phí từ 15.000đ theo giá trị hàng\nGiá cố định, không thu thêm 👌");}],
   ["🔒 Cọc là sao? An toàn không?",()=>{botMsg("Cọc để 2 bên đều yên tâm, chống boom đơn á:\n• Đồ ăn: cọc 30% (tối thiểu 20k), còn lại COD\n• Mua hộ: ứng tiền hàng + phí, có hoá đơn chụp gửi\n• Chuyển khoản QR có MÃ ĐƠN đối chiếu, chủ TK VO QUOC CUONG (MB Bank)\n• Hoàn 100% nếu shop huỷ hoặc không mua được 💯");}],
-  ["📞 Gặp người thật",()=>{botMsg("Gọi hotline 0775 218 017 (7:00–22:00) hoặc nhắn Zalo cùng số nha — shop trả lời nhanh lắm 💬");}],
+  ["📞 Gặp người thật",()=>{botMsg("Gọi hotline 0775 218 017 (7:00–22:00) hoặc nhắn Zalo cùng số nha — shop trả lời nhanh lắm 💬\nMuốn chat bot Zalo tự động 24/7: kéo xuống cuối trang bấm \"Bot Zalo\" quét QR nhé 🤖");}],
 ];
 function botIntent(t){
   t=t.toLowerCase();
@@ -1908,6 +1924,10 @@ document.getElementById('botFab').addEventListener('click',()=>{
   }
 });
 document.getElementById('botModal').addEventListener('click',e=>{if(e.target.id==='botModal')e.target.classList.remove('show');});
+/* 🤖 QR Bot Zalo */
+document.getElementById('qrBotOpen').addEventListener('click',e=>{e.preventDefault();document.getElementById('qrBotModal').classList.add('show');});
+document.getElementById('qrBotClose').addEventListener('click',()=>document.getElementById('qrBotModal').classList.remove('show'));
+document.getElementById('qrBotModal').addEventListener('click',e=>{if(e.target.id==='qrBotModal')e.target.classList.remove('show');});
 function sendChat(){
   const inp=document.getElementById('chatInput');
   const t=inp.value.trim();if(!t)return;

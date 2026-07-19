@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Goship123 — Quản Lý</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="icon-192.png">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;800&family=Baloo+2:wght@700;800&display=swap" rel="stylesheet">
+<style>
+:root{--red:#DF2020;--yellow:#FFC93C;--green:#16A34A;--bg:#14171a;--card:#1F2529;--line:#31393E;--txt:#F2EFE9;--dim:#95A09B;}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{background:var(--bg);color:var(--txt);font-family:'Be Vietnam Pro',sans-serif;padding-bottom:50px}
+.wrap{max-width:560px;margin:0 auto;padding:0 14px}
+header{padding:16px 0;border-bottom:1px solid var(--line);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+h1{font-family:'Baloo 2';font-size:19px}h1 span{color:var(--yellow)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:12px}
+input,select{width:100%;background:var(--bg);border:1.5px solid var(--line);border-radius:12px;padding:12px;color:var(--txt);font-size:15px;font-family:inherit;margin-top:8px}
+input:focus{outline:none;border-color:var(--yellow)}
+.cta{width:100%;border:none;border-radius:13px;padding:14px;font-family:'Baloo 2';font-size:16px;cursor:pointer;margin-top:12px;background:linear-gradient(120deg,#B21820,var(--red));color:#fff}
+.cta:active{transform:scale(.97)}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:13px;text-align:center}
+.stat .l{font-size:11px;color:var(--dim)}
+.stat .v{font-family:'Baloo 2';font-size:21px;color:#3DDC84}
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.tabs button{border:1.5px solid var(--line);background:var(--card);color:var(--dim);border-radius:12px;padding:10px;font-weight:800;font-size:13.5px;cursor:pointer;font-family:inherit}
+.tabs button.on{background:var(--yellow);border-color:var(--yellow);color:#231F1F}
+.ord{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;margin-bottom:9px;font-size:13px}
+.ord .top{display:flex;justify-content:space-between;color:var(--dim);font-size:11.5px;margin-bottom:4px}
+.ord .type{font-weight:800;font-size:14px}
+.ord .detail{color:#CFCBC2;margin:4px 0;line-height:1.45}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin:8px 0 4px;text-align:center}
+.row3 div{background:var(--bg);border-radius:10px;padding:7px 2px}
+.row3 .l{font-size:9.5px;color:var(--dim)}
+.row3 .v{font-family:'Baloo 2';font-size:14px}
+.v.thu{color:var(--yellow)}.v.tx{color:#7FB8FF}.v.loi{color:#3DDC84}
+.badge{font-size:10px;padding:2px 8px;border-radius:99px;font-weight:800}
+.s-open{background:rgba(255,201,60,.15);color:var(--yellow)}
+.s-taken{background:rgba(127,184,255,.15);color:#7FB8FF}
+.s-done{background:rgba(22,163,74,.2);color:#3DDC84}
+.s-cancel{background:rgba(223,32,32,.15);color:#FF7B7B}
+.mini{display:flex;gap:6px;margin-top:8px}
+.mini button{flex:1;border:1px solid var(--line);background:var(--bg);color:var(--txt);border-radius:9px;padding:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit}
+.drv{display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;margin-bottom:8px}
+.drv .av{width:38px;height:38px;border-radius:50%;background:var(--line);display:grid;place-items:center;font-size:18px}
+.drv .inf{flex:1;font-size:13.5px}.drv .inf small{color:var(--dim);display:block}
+.drv button{border:none;border-radius:9px;padding:8px 10px;font-size:12px;font-weight:800;cursor:pointer;font-family:inherit}
+.off{opacity:.45}
+.empty{text-align:center;color:var(--dim);padding:26px;font-size:13px}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:24px;background:var(--yellow);color:#231F1F;font-weight:800;font-size:13px;padding:10px 18px;border-radius:99px;opacity:0;transition:.3s;pointer-events:none;z-index:99}
+.toast.show{opacity:1}
+#appView{display:none}
+.pend{background:linear-gradient(135deg,rgba(255,201,60,.09),var(--card));border:1.5px solid rgba(255,201,60,.4);border-radius:14px;padding:12px;margin-bottom:9px;animation:blinkIn .4s ease}
+@keyframes blinkIn{from{opacity:0;transform:scale(.97)}to{opacity:1}}
+.pend .t{font-weight:800;font-size:14px}
+.pend small{color:var(--dim);display:block;margin:3px 0 8px;line-height:1.5}
+.pend .act{display:flex;gap:8px}
+.pend .act button{flex:1;border:none;border-radius:10px;padding:10px;font-weight:800;font-size:13px;cursor:pointer;font-family:inherit}
+.ok{background:var(--green);color:#fff}
+.no{background:rgba(223,32,32,.2);color:#FF7B7B}
+label{font-size:12px;color:var(--dim);font-weight:700;display:block;margin-top:8px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header><h1>👑 Goship123 <span>Quản Lý</span></h1></header>
+
+  <div id="loginView" class="card">
+    <div style="font-family:'Baloo 2';font-size:16px">🔐 Khóa quản lý</div>
+    <input id="key" type="password" placeholder="Nhập ADMIN_KEY của mày">
+    <button class="cta" id="loginBtn">Mở sổ cái 📗</button>
+  </div>
+
+  <div id="appView">
+    <div class="stats">
+      <div class="stat"><div class="l">💰 LỜI HÔM NAY</div><div class="v" id="pToday">—</div></div>
+      <div class="stat"><div class="l">🏦 LỜI TỔNG (đơn xong)</div><div class="v" id="pAll">—</div></div>
+    </div>
+    <div class="tabs">
+      <button class="on" id="tabOrd">📦 Đơn hàng</button>
+      <button id="tabDrv">🛵 Tài xế</button>
+    </div>
+
+    <div id="viewOrd"><div id="listOrd"></div></div>
+
+    <div id="viewDrv" style="display:none">
+      <div id="pendBox"></div>
+      <div class="card">
+        <div style="font-family:'Baloo 2';font-size:15px">➕ Thêm / sửa tài xế</div>
+        <label>Tên tài xế</label><input id="dName" placeholder="VD: Anh Tí Bãi Trường">
+        <label>Số điện thoại (tên đăng nhập)</label><input id="dPhone" type="tel" placeholder="090...">
+        <label>Mã PIN cấp cho tài xế</label><input id="dPin" placeholder="VD: 2468">
+        <button class="cta" id="addDrv">Lưu tài xế ✅</button>
+      </div>
+      <div id="listDrv"></div>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* 🔧 API — đổi nếu URL Deno khác */
+const API = "https://low-bulldog-5945.vaultadidas-collab.deno.net";
+
+const $=id=>document.getElementById(id);
+const fmt=n=>(n||0).toLocaleString("vi")+"đ";
+let KEY = localStorage.getItem("gs_admin")||"";
+function toast(m){const t=$("toast");t.textContent=m;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2400);}
+function show(v){$("loginView").style.display=v==="login"?"block":"none";$("appView").style.display=v==="app"?"block":"none";}
+
+$("loginBtn").addEventListener("click",()=>{ KEY=$("key").value.trim(); if(!KEY)return toast("Nhập khóa đã!"); localStorage.setItem("gs_admin",KEY); show("app"); load(); });
+$("tabOrd").addEventListener("click",()=>tab("ord"));
+$("tabDrv").addEventListener("click",()=>tab("drv"));
+function tab(t){$("tabOrd").classList.toggle("on",t==="ord");$("tabDrv").classList.toggle("on",t==="drv");
+$("viewOrd").style.display=t==="ord"?"block":"none";$("viewDrv").style.display=t==="drv"?"block":"none";}
+
+async function load(){
+  try{
+    const r=await fetch(`${API}/api/admin/all?key=${encodeURIComponent(KEY)}`);
+    if(r.status===401){toast("Sai ADMIN_KEY");localStorage.removeItem("gs_admin");show("login");return;}
+    const d=await r.json(); if(!d.ok)return;
+    $("pToday").textContent=fmt(d.profitToday);
+    $("pAll").textContent=fmt(d.profitAll);
+    $("listOrd").innerHTML=d.orders.length?d.orders.map(ordCard).join(""):`<div class="empty">Chưa có đơn nào — chờ khách đặt trên web nhé.</div>`;
+    const pend = d.drivers.filter(x=>x.pending);
+    const act  = d.drivers.filter(x=>!x.pending);
+    $("tabDrv").innerHTML = "🛵 Tài xế" + (pend.length?` <span style="background:var(--red);color:#fff;border-radius:99px;padding:1px 7px;font-size:11px">${pend.length}</span>`:"");
+    $("pendBox").innerHTML = pend.length ? `<div style="font-family:'Baloo 2';font-size:15px;margin-bottom:8px">🔔 Hồ sơ chờ duyệt</div>`+pend.map(p=>`
+      <div class="pend"><div class="t">👤 ${p.name}</div>
+      <small>📞 ${p.phone} · ${p.vehicle||"?"} ${p.plate?"· 🚘 "+p.plate:""}</small>
+      <div class="act"><button class="ok" onclick="approve('${p.phone}',true)">✅ Duyệt cho chạy</button>
+      <button class="no" onclick="approve('${p.phone}',false)">✖ Từ chối</button></div></div>`).join("") : "";
+    $("listDrv").innerHTML=act.length?act.map(drvCard).join(""):`<div class="empty">Chưa có tài xế hoạt động — duyệt hồ sơ hoặc tự thêm nhé!</div>`;
+  }catch(e){}
+}
+
+const S={open:["s-open","CHỜ NHẬN"],taken:["s-taken","ĐANG CHẠY"],done:["s-done","XONG"],cancel:["s-cancel","HỦY"]};
+function ordCard(o){
+  const [cls,txt]=S[o.status]||S.open;
+  const time=new Date(o.t).toLocaleString("vi",{hour:"2-digit",minute:"2-digit",day:"2-digit",month:"2-digit"});
+  return `<div class="ord">
+    <div class="top"><span>#${o.code} · ${time}${o.drv?` · 🛵 ${o.drv.name}`:""}</span><span class="badge ${cls}">${txt}</span></div>
+    <div class="type">${o.type}</div>
+    <div class="detail">${o.detail}</div>
+    <div class="row3">
+      <div><div class="l">THU KHÁCH</div><div class="v thu">${fmt(o.fare)}</div></div>
+      <div><div class="l">TÀI XẾ</div><div class="v tx">${fmt(o.pay)}</div></div>
+      <div><div class="l">MÀY LỜI</div><div class="v loi">${fmt(o.profit)}</div></div>
+    </div>
+    <div class="mini">
+      ${o.status!=="done"?`<button onclick="act('${o.code}','done')">✅ Xong</button>`:""}
+      ${o.status==="taken"?`<button onclick="act('${o.code}','reopen')">↩️ Thả lại</button>`:""}
+      ${o.status!=="cancel"&&o.status!=="done"?`<button onclick="act('${o.code}','cancel')">🗑️ Hủy</button>`:""}
+    </div></div>`;
+}
+window.act=async(code,action)=>{
+  await fetch(API+"/api/admin/order",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({key:KEY,code,action})}).catch(()=>{});
+  toast("Đã cập nhật"); load();
+};
+
+function drvCard(d){
+  const ic = (d.vehicle||"").includes("7")?"🚐":(d.vehicle||"").includes("4")?"🚗":"🛵";
+  return `<div class="drv ${d.active===false?"off":""}">
+    <div class="av">${ic}</div>
+    <div class="inf"><b>${d.name}</b><small>${d.phone}${d.plate?" · "+d.plate:""} · ${d.active===false?"ĐANG KHÓA":"đang hoạt động"}</small></div>
+    <button style="background:${d.active===false?"var(--green)":"var(--line)"};color:#fff" onclick="togDrv('${d.phone}',${d.active===false})">${d.active===false?"Mở":"Khóa"}</button>
+    <button style="background:rgba(223,32,32,.2);color:#FF7B7B" onclick="delDrv('${d.phone}')">Xóa</button>
+  </div>`;
+}
+window.approve=async(phone,ok)=>{
+  if(!ok && !confirm("Từ chối và xóa hồ sơ "+phone+"?"))return;
+  await fetch(API+"/api/admin/driver",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({key:KEY,phone,approve:ok})}).catch(()=>{});
+  toast(ok?"✅ Đã duyệt — tài xế đăng nhập được rồi!":"Đã từ chối hồ sơ"); load();
+};
+$("addDrv").addEventListener("click",async()=>{
+  const name=$("dName").value.trim(),phone=$("dPhone").value.trim(),pin=$("dPin").value.trim();
+  if(!name||!phone||!pin)return toast("Điền đủ tên + SĐT + PIN");
+  const r=await fetch(API+"/api/admin/driver",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({key:KEY,name,phone,pin,active:true})});
+  const d=await r.json();
+  toast(d.ok?"Đã lưu! Gửi SĐT+PIN cho tài xế nhé":"Lỗi: "+(d.err||""));
+  $("dName").value=$("dPhone").value=$("dPin").value=""; load();
+});
+window.togDrv=async(phone,open)=>{
+  await fetch(API+"/api/admin/driver",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({key:KEY,phone,toggle:open})}).catch(()=>{});
+  toast(open?"Đã mở khóa":"Đã khóa tài xế"); load();
+};
+window.delDrv=async(phone)=>{
+  if(!confirm("Xóa hẳn tài xế "+phone+"?"))return;
+  await fetch(API+"/api/admin/driver",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({key:KEY,phone,del:true})}).catch(()=>{});
+  toast("Đã xóa"); load();
+};
+
+setInterval(()=>{ if(KEY && $("appView").style.display!=="none") load(); },20000);
+if(KEY){show("app");load();}else show("login");
+</script>
+</body>
+</html>
