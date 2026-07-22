@@ -23,7 +23,7 @@ input:focus{outline:none;border-color:var(--yellow)}
 .stat{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:13px;text-align:center}
 .stat .l{font-size:11px;color:var(--dim)}
 .stat .v{font-family:'Baloo 2';font-size:21px;color:#3DDC84}
-.tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.tabs{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px}
 .tabs button{border:1.5px solid var(--line);background:var(--card);color:var(--dim);border-radius:12px;padding:10px;font-weight:800;font-size:13.5px;cursor:pointer;font-family:inherit}
 .tabs button.on{background:var(--yellow);border-color:var(--yellow);color:#231F1F}
 .ord{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;margin-bottom:9px;font-size:13px}
@@ -78,11 +78,23 @@ label{font-size:12px;color:var(--dim);font-weight:700;display:block;margin-top:8
       <div class="stat"><div class="l">🏦 LỜI TỔNG (đơn xong)</div><div class="v" id="pAll">—</div></div>
     </div>
     <div class="tabs">
-      <button class="on" id="tabOrd">📦 Đơn hàng</button>
+      <button class="on" id="tabOrd">📦 Đơn</button>
       <button id="tabDrv">🛵 Tài xế</button>
+      <button id="tabNews">📰 Tin</button>
     </div>
 
     <div id="viewOrd"><div id="listOrd"></div></div>
+
+    <div id="viewNews" style="display:none">
+      <div class="card">
+        <div style="font-family:'Baloo 2';font-size:15px">📌 Đăng tin mới lên web</div>
+        <label>Tiêu đề</label><input id="nTitle" placeholder="VD: Freeship toàn đảo cuối tuần này!" maxlength="80">
+        <label>Nội dung</label><input id="nMsg" placeholder="VD: Nhập mã FREESHIP cho đơn từ 150k, áp dụng T7-CN..." maxlength="500">
+        <button class="cta" id="nAdd">Đăng tin 📢</button>
+      </div>
+      <div id="pendWall"></div>
+      <div id="listFeed"></div>
+    </div>
 
     <div id="viewDrv" style="display:none">
       <div id="pendBox"></div>
@@ -101,7 +113,7 @@ label{font-size:12px;color:var(--dim);font-weight:700;display:block;margin-top:8
 
 <script>
 /* 🔧 API — đổi nếu URL Deno khác */
-const API = "https://low-bulldog-5945.vaultadidas-collab.deno.net";
+const API = "https://funny-bobcat-4885.vaultadidas-collab.deno.net";
 
 const $=id=>document.getElementById(id);
 const fmt=n=>(n||0).toLocaleString("vi")+"đ";
@@ -112,8 +124,40 @@ function show(v){$("loginView").style.display=v==="login"?"block":"none";$("appV
 $("loginBtn").addEventListener("click",()=>{ KEY=$("key").value.trim(); if(!KEY)return toast("Nhập khóa đã!"); localStorage.setItem("gs_admin",KEY); show("app"); load(); });
 $("tabOrd").addEventListener("click",()=>tab("ord"));
 $("tabDrv").addEventListener("click",()=>tab("drv"));
-function tab(t){$("tabOrd").classList.toggle("on",t==="ord");$("tabDrv").classList.toggle("on",t==="drv");
-$("viewOrd").style.display=t==="ord"?"block":"none";$("viewDrv").style.display=t==="drv"?"block":"none";}
+$("tabNews").addEventListener("click",()=>{tab("news");loadFeedA();});
+function tab(t){$("tabOrd").classList.toggle("on",t==="ord");$("tabDrv").classList.toggle("on",t==="drv");$("tabNews").classList.toggle("on",t==="news");
+$("viewOrd").style.display=t==="ord"?"block":"none";$("viewDrv").style.display=t==="drv"?"block":"none";$("viewNews").style.display=t==="news"?"block":"none";}
+
+/* ── 📰 Tin & cộng đồng ── */
+async function loadFeedA(){
+  try{
+    const r=await fetch(`${API}/api/admin/feed?key=${encodeURIComponent(KEY)}`);
+    const d=await r.json(); if(!d.ok)return;
+    const esc=x=>{const e=document.createElement('div');e.textContent=x||"";return e.innerHTML;};
+    const dt=t=>new Date(t).toLocaleString("vi",{hour:"2-digit",minute:"2-digit",day:"2-digit",month:"2-digit"});
+    const pend=d.posts.filter(p=>p.kind==="wall"&&!p.ok);
+    $("tabNews").innerHTML="📰 Tin"+(pend.length?` <span style="background:var(--red);color:#fff;border-radius:99px;padding:1px 7px;font-size:11px">${pend.length}</span>`:"");
+    $("pendWall").innerHTML = pend.length ? `<div style="font-family:'Baloo 2';font-size:15px;margin:4px 0 8px">🔔 Bài cộng đồng chờ duyệt</div>`+pend.map(p=>`
+      <div class="pend"><div class="t">👤 ${esc(p.name)}</div><small>"${esc(p.msg)}" · ${dt(p.t)}</small>
+      <div class="act"><button class="ok" onclick="feedAct('${p.id}','ok')">✅ Duyệt hiện lên web</button>
+      <button class="no" onclick="feedAct('${p.id}','del')">✖ Xóa</button></div></div>`).join("") : "";
+    $("listFeed").innerHTML = d.posts.filter(p=>p.kind==="news"||p.ok).map(p=>`
+      <div class="ord"><div class="top"><span>${p.kind==="news"?"📌 TIN SHOP":"💬 "+esc(p.name)} · ${dt(p.t)}</span></div>
+      ${p.title?`<div class="type">${esc(p.title)}</div>`:""}
+      <div class="detail">${esc(p.msg)}</div>
+      <div class="mini"><button onclick="feedAct('${p.id}','del')">🗑️ Gỡ khỏi web</button></div></div>`).join("")||`<div class="empty">Chưa có tin nào — đăng tin đầu tiên đi!</div>`;
+  }catch(e){}
+}
+window.feedAct=async(id,action)=>{
+  await fetch(API+"/api/admin/feedpost",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({key:KEY,id,action})}).catch(()=>{});
+  toast("Đã cập nhật"); loadFeedA();
+};
+$("nAdd").addEventListener("click",async()=>{
+  const title=$("nTitle").value.trim(), msg=$("nMsg").value.trim();
+  if(!title||!msg)return toast("Điền tiêu đề + nội dung");
+  await fetch(API+"/api/admin/feedpost",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({key:KEY,action:"add",title,msg})}).catch(()=>{});
+  $("nTitle").value=$("nMsg").value=""; toast("Đã đăng lên web 📢"); loadFeedA();
+});
 
 async function load(){
   try{
